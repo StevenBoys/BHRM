@@ -14,3 +14,4 @@ Import:
     mvtnor,
     truncdist,
     nleqslv
+RoxygenNote: 7.1.1
