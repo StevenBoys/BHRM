@@ -5,9 +5,8 @@ Bowen Lei, Se Yoon Lee, Bani Mallick
 # BHRM: Bayesian Hierarchical Richard Model
 
 This R package is designed to help users to train the Bayesian Hierarchical Richard Model (BHRM) which is based on the Richards curve:
-$$
-f(t ; \theta_1, \theta_2, \theta_3, \xi) &= \theta_1 \cdot [ 1 + \xi \cdot \exp \{-\theta_2 \cdot ( t - \theta_3) \}   ]^{-1/\xi}
-$$
+
+<img src="https://latex.codecogs.com/gif.latex?f(t&space;;&space;\theta_1,&space;\theta_2,&space;\theta_3,&space;\xi)=\theta_1&space;\cdot[&space;1&space;&plus;&space;\xi&space;\cdot&space;\exp&space;\{-\theta_2&space;\cdot&space;(&space;t&space;-&space;\theta_3)&space;\}&space;]^{-1/\xi}" title="f(t ; \theta_1, \theta_2, \theta_3, \xi)=\theta_1 \cdot[ 1 + \xi \cdot \exp \{-\theta_2 \cdot ( t - \theta_3) \} ]^{-1/\xi}" />
 
 The model can uncover a hidden pattern from growth curves. At the same time, users can choose covariate version and identify important predictors that largely affect on the shape of the curve $f(t ; \theta_1, \theta_2, \theta_3, \xi)$ in terms of the three curve parameters.
 
