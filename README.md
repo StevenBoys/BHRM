@@ -11,7 +11,7 @@ This R package is designed to help users to train the Bayesian Hierarchical Rich
 The model can uncover a hidden pattern from growth curves. At the same time, users can choose covariate version and identify important predictors that largely affect on the shape of the curve f in terms of the three curve parameters.
 
 The details of the model is as below:
-![](https://github.com/StevenBoys/BHRM/blob/main/Image/BHRM_formula.png?raw=true =200x100)
+![](https://github.com/StevenBoys/BHRM/blob/main/Image/BHRM_formula.png?raw=true)
 
 ## Installation
 
@@ -25,6 +25,51 @@ devtools::install_github("StevenBoys/BHRM", build_vignettes = T)
 ```
 library(BHRM)
 ```
+
+Take the COVID-19 data as an example. The time_series_data include infection trajectories for several global countries and the design_matrix include potential covariates. 
+```
+# load the data
+data("design_matrix")
+data("time_series_data")
+# standardize the design matrix
+norm_vec = function( x , y = rep(0,length(x)) ) {
+  norm_vector = sqrt(sum((x-y)^2))
+  
+  if (norm_vector == Inf){
+    norm_vector = 1e+308
+  } else {
+    norm_vector = norm_vector
+  } 
+  return(norm_vector)
+}
+for (j in 1:ncol(X)){
+  design_matrix[,j] = design_matrix[,j] - mean(design_matrix[,j])
+  design_matrix[,j] = design_matrix[,j]/norm_vec(x = design_matrix[,j], y = rep(0,nrow(design_matrix)))
+}
+```
+
+We choose the Bayesian hierarchical Richard model with covariates to analyse the data.
+```
+# set the hyperparameters
+seed.no = 1 ; burn = 40000 ; nmc = 20000 ; thin = 30; varrho = 0
+pro.var.theta.2 = 0.0002 ; pro.var.theta.3 = 0.05; mu = 0 ; rho.sq = 1
+# run the model
+Y = time_series_data[, -c(1:2)]; X = design_matrix[, -c(1:2)]
+res_cov = BHRM_cov(Y = Y, X = X, seed.no = seed.no, burn = burn, nmc = nmc, thin = thin, varrho = varrho, 
+                   pro.var.theta.2 = pro.var.theta.2, pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)  
+```
+
+We can use `var_sele` function to check the variable selection results.
+```
+# check the important factors for theta1
+var_selection = var_sele(beta.vec = res_cov$thinned.theta.1.vec, names = names(X))
+# check the names of the top covariates selected
+var_selection$names_sele
+# plot the figure for 95% credible interval of each covariates
+var_selection$figure
+```
+
+
 
 
 ## References
