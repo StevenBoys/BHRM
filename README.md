@@ -31,6 +31,7 @@ Take the COVID-19 data as an example. The time_series_data include infection tra
 # load the data
 data("design_matrix")
 data("time_series_data")
+Y = time_series_data[, -c(1:2)]; X = design_matrix[, -c(1:2)]
 # standardize the design matrix
 norm_vec = function( x , y = rep(0,length(x)) ) {
   norm_vector = sqrt(sum((x-y)^2))
@@ -43,8 +44,8 @@ norm_vec = function( x , y = rep(0,length(x)) ) {
   return(norm_vector)
 }
 for (j in 1:ncol(X)){
-  design_matrix[,j] = design_matrix[,j] - mean(design_matrix[,j])
-  design_matrix[,j] = design_matrix[,j]/norm_vec(x = design_matrix[,j], y = rep(0,nrow(design_matrix)))
+  X[,j] = X[,j] - mean(X[,j])
+  X[,j] = X[,j]/norm_vec(x = X[,j], y = rep(0,nrow(X)))
 }
 ```
 
@@ -54,9 +55,9 @@ We choose the Bayesian hierarchical Richard model with covariates to analyse the
 seed.no = 1 ; burn = 40000 ; nmc = 20000 ; thin = 30; varrho = 0
 pro.var.theta.2 = 0.0002 ; pro.var.theta.3 = 0.05; mu = 0 ; rho.sq = 1
 # run the model
-Y = time_series_data[, -c(1:2)]; X = design_matrix[, -c(1:2)]
-res_cov = BHRM_cov(Y = Y, X = X, seed.no = seed.no, burn = burn, nmc = nmc, thin = thin, varrho = varrho, 
-                   pro.var.theta.2 = pro.var.theta.2, pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)  
+res_cov = BHRM_cov(Y = Y, X = X, seed.no = seed.no, burn = burn, nmc = nmc,  
+                   thin = thin, varrho = varrho, pro.var.theta.2 = pro.var.theta.2, 
+                   pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)  
 ```
 
 We can use `var_sele` function to check the variable selection results.
