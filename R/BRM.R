@@ -29,7 +29,13 @@
 #' @export
 #'
 #' @examples
-#'
+#' data("time_series_data")
+#' Y = time_series_data[, -c(1:2)]
+#' seed.no = 1 ; burn = 20000 ; nmc = 20000 ; thin = 30; varrho = 0
+#' pro.var.theta.2 = 0.0002 ; pro.var.theta.3 = 0.05; mu = 0 ; rho.sq = 1
+#' res_cov = BRM(Y = Y[1, ], seed.no = seed.no, burn = burn, nmc = nmc,
+#' thin = thin, varrho = varrho, pro.var.theta.2 = pro.var.theta.2,
+#' pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)
 BRM = function(Y,t.values,seed.no=1,burn=2000,nmc=2000,thin=10, varrho = 0.1, pro.var.theta.2 = 0.0002, pro.var.theta.3 = 0.05, mu = 1, rho.sq = 1){
 
   # Y: 1-by-T time sereis data for N countries for T days (row vector)
