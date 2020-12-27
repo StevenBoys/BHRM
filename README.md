@@ -70,7 +70,13 @@ var_selection$names_sele
 var_selection$figure
 ```
 
-
+We can also use `predict` to make predictions and use `plot_RM` to make a plot and compare the real trajectory and predictions.
+```
+# make predictions
+predict_list = predict(res_cov, Y, 1)
+# make a plot to see the performance of the predictions
+plot_RM(predict_list$prediction, Y[1, ])
+```
 
 
 ## References
