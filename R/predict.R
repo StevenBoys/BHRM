@@ -49,14 +49,14 @@ predict = function(model, Y, i, num_days = 14, conf = 0.95, seed = 5){
   t.values = c(1:(ncol(Y)+num_days))
   y.temp = matrix(0, nrow = ncol(model$thinned.theta.1.vec), ncol = length(t.values))
   for (t in 1:length(t.values)){
-    for (s in 1:ncol(res$thinned.theta.1.vec)){
+    for (s in 1:ncol(model$thinned.theta.1.vec)){
       mu = Richard_f(t = t.values[t],
-             theta.1 = res$thinned.theta.1.vec[i, s],
-             theta.2 = res$thinned.theta.2.vec[i, s],
-             theta.3 = res$thinned.theta.3.vec[i, s],
-             xi = res$thinned.xi.vec[i, s])
-      sigma.sq = res$thinned.sigma.sq[s]
-      y.temp[s,t] = rnorm(nsample, mu, sqrt(sigma.sq))
+             theta.1 = model$thinned.theta.1.vec[i, s],
+             theta.2 = model$thinned.theta.2.vec[i, s],
+             theta.3 = model$thinned.theta.3.vec[i, s],
+             xi = model$thinned.xi.vec[i, s])
+      sigma.sq = model$thinned.sigma.sq[s]
+      y.temp[s,t] = rnorm(1, mu, sqrt(sigma.sq))
     }
   }
   pred = round(colMeans(y.temp))
@@ -94,6 +94,8 @@ predict = function(model, Y, i, num_days = 14, conf = 0.95, seed = 5){
 #' plot_RM(predict_list$prediction, Y[1, ], predict_list$upper, predict_list$lower)
 plot_RM = function(pred, y, upper = NULL, lower = NULL, num_days = 14, title = NULL, y_name = NULL){
   library(ggplot2)
+  library(scales)
+  library(ggthemes)
 
   # define data frame for the posterior predictive mean
   t.values = c(1:length(pred))
@@ -101,6 +103,7 @@ plot_RM = function(pred, y, upper = NULL, lower = NULL, num_days = 14, title = N
   names(df_mean) <- c("t.values", "post_mean")
 
   # define the data frame for the observations
+  y = as.vector(as.matrix(y))
   df_obs = as.data.frame(cbind(c(1:length(y)), y))
   names(df_obs) = c("t.values","obs")
 
@@ -133,10 +136,10 @@ plot_RM = function(pred, y, upper = NULL, lower = NULL, num_days = 14, title = N
     geom_point(data = df_obs, mapping = aes(x = t.values, y = obs),size = 2.5, col = "#000000") +
     xlab("Date") + ylab(y_name) +
     theme(
-      axis.text=element_text(size=40),
-      axis.title=element_text(size=50),
-      plot.title = element_text(size = 70, face = "bold"))+
-    theme_hc()+ scale_colour_hc() +
+      axis.text=element_text(size=20),
+      axis.title=element_text(size=25),
+      plot.title = element_text(size = 35, face = "bold"))+
+    theme_hc() + scale_colour_hc() +
     ylim(y_min, y_max) +
     scale_y_continuous(labels=comma)
 

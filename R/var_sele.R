@@ -20,7 +20,7 @@
 #' thin = thin, varrho = varrho, pro.var.theta.2 = pro.var.theta.2,
 #' pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)
 #' var_selection = var_sele(beta.vec = res_cov$thinned.theta.1.vec, names = names(X))
-credible_interval = function(beta.vec, max.rank = 10, names = NULL){
+var_sele = function(beta.vec, max.rank = 10, names = NULL){
   library("ggplot2")
   # Input should be posterior realizations of p dimensional vector of beta
   # Each column of the vector should be each iteration

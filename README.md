@@ -47,23 +47,29 @@ for (j in 1:ncol(X)){
   X[,j] = X[,j] - mean(X[,j])
   X[,j] = X[,j]/norm_vec(x = X[,j], y = rep(0,nrow(X)))
 }
+X = as.matrix(X)
 ```
 
 We choose the Bayesian hierarchical Richard model with covariates to analyse the data.
 ```
 # set the hyperparameters
-seed.no = 1 ; burn = 40000 ; nmc = 20000 ; thin = 30; varrho = 0
+seed.no = 1 ; burn = 20000 ; nmc = 20000 ; thin = 30; varrho = 0
 pro.var.theta.2 = 0.0002 ; pro.var.theta.3 = 0.05; mu = 0 ; rho.sq = 1
+t.values = list(); num_days = 14
+for(i in 1:nrow(Y)){
+  t.values[[i]] = c(1:(ncol(Y) - num_days))
+}
+Y = Y[, c(1:(ncol(Y) - num_days))]
 # run the model
-res_cov = BHRM_cov(Y = Y, X = X, seed.no = seed.no, burn = burn, nmc = nmc,  
-                   thin = thin, varrho = varrho, pro.var.theta.2 = pro.var.theta.2, 
+res_cov = BHRM_cov(Y = Y, X = X, t.values = t.values, seed.no = seed.no, burn = burn,   
+                   nmc = nmc, thin = thin, varrho = varrho, pro.var.theta.2 = pro.var.theta.2, 
                    pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)  
 ```
 
 We can use `var_sele` function to check the variable selection results.
 ```
 # check the important factors for theta1
-var_selection = var_sele(beta.vec = res_cov$thinned.theta.1.vec, names = names(X))
+var_selection = var_sele(beta.vec = res_cov$thinned.theta.1.vec)
 # check the names of the top covariates selected
 var_selection$names_sele
 # plot the figure for 95% credible interval of each covariates

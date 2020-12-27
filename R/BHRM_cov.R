@@ -1,48 +1,5 @@
-#' Function that implement Bayesian Hierarchical Richard model with covariates
-#'
-#' @param Y - N-by-T time sereis data for N countries for T days
-#' @param t.values - N list for time perids for N countries
-#' @param X - N-by-p design matrix (Should be column-wised standardized in advance)
-#' @param seed.no - scalar for random seed
-#' @param burn - no of burn
-#' @param nmc - no of iterations after burn
-#' @param thin - no of thining for the nmc
-#' @param varrho - hyper-parameter for the diffuse prior error variances ~ IG(varrho,varrho)
-#' @param pro.var.theta.2 - proposal variances for the MH algorithms to sample from theta.2.i
-#' @param pro.var.theta.3 - proposal variances for the MH algorithms to sample from theta.3.i
-#' @param mu - mu
-#' @param rho.sq - rho.sq
-#'
-#' @return A list of
-#'        \item{thinned.theta.1.vec}{ - thinned.theta.1.vec}
-#'        \item{thinned.theta.2.vec}{ - thinned.theta.2.vec}
-#'        \item{thinned.theta.3.vec}{ - thinned.theta.3.vec}
-#'        \item{thinned.xi.vec}{ - thinned.xi.vec}
-#'        \item{thinned.alpha.1}{ - thinned.alpha.1}
-#'        \item{thinned.alpha.2}{ - thinned.alpha.2}
-#'        \item{thinned.alpha.3}{ - thinned.alpha.3}
-#'        \item{thinned.beta.1.vec}{ - thinned.beta.1.vec}
-#'        \item{thinned.beta.2.vec}{ - thinned.beta.2.vec}
-#'        \item{thinned.beta.3.vec}{ - thinned.beta.3.vec}
-#'        \item{thinned.sigma.sq}{ - thinned.sigma.sq}
-#'        \item{thinned.sigma.1.sq}{ - thinned.sigma.1.sq}
-#'        \item{thinned.sigma.2.sq}{ - thinned.sigma.2.sq}
-#'        \item{thinned.sigma.3.sq}{ - thinned.sigma.3.sq}
-#'        \item{mu}{ - mu}
-#'        \item{rho.sq}{ - rho.sq}
-#' @export
-#'
-#' @examples
-#' data("design_matrix")
-#' data("time_series_data")
-#' Y = time_series_data[, -c(1:2)]; X = design_matrix[, -c(1:2)]
-#' X = scale(X)
-#' seed.no = 1 ; burn = 40000 ; nmc = 20000 ; thin = 30; varrho = 0
-#' pro.var.theta.2 = 0.0002 ; pro.var.theta.3 = 0.05; mu = 0 ; rho.sq = 1
-#' res_cov = BHRM_cov(Y = Y, X = X, seed.no = seed.no, burn = burn, nmc = nmc,
-#' thin = thin, varrho = varrho, pro.var.theta.2 = pro.var.theta.2,
-#' pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)
-BHRM_cov = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varrho = 0, pro.var.theta.2 = 0.0002, pro.var.theta.3 = 0.05, mu = 0, rho.sq = 1){
+
+BHRM_cov_temp = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varrho = 0, pro.var.theta.2 = 0.0002, pro.var.theta.3 = 0.05, mu = 0, rho.sq = 1){
 
   # Y: N-by-T time sereis data for N countries for T days
   # t.values: N list for time perids for N countries
@@ -761,4 +718,62 @@ BHRM_cov = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varrho = 
     return(res)
   }
 }
+
+#' Function that implement Bayesian Hierarchical Richard model with covariates
+#'
+#' @param Y - N-by-T time sereis data for N countries for T days
+#' @param t.values - N list for time perids for N countries
+#' @param X - N-by-p design matrix (Should be column-wised standardized in advance)
+#' @param seed.no - scalar for random seed
+#' @param burn - no of burn
+#' @param nmc - no of iterations after burn
+#' @param thin - no of thining for the nmc
+#' @param varrho - hyper-parameter for the diffuse prior error variances ~ IG(varrho,varrho)
+#' @param pro.var.theta.2 - proposal variances for the MH algorithms to sample from theta.2.i
+#' @param pro.var.theta.3 - proposal variances for the MH algorithms to sample from theta.3.i
+#' @param mu - mu
+#' @param rho.sq - rho.sq
+#'
+#' @return A list of
+#'        \item{thinned.theta.1.vec}{ - thinned.theta.1.vec}
+#'        \item{thinned.theta.2.vec}{ - thinned.theta.2.vec}
+#'        \item{thinned.theta.3.vec}{ - thinned.theta.3.vec}
+#'        \item{thinned.xi.vec}{ - thinned.xi.vec}
+#'        \item{thinned.alpha.1}{ - thinned.alpha.1}
+#'        \item{thinned.alpha.2}{ - thinned.alpha.2}
+#'        \item{thinned.alpha.3}{ - thinned.alpha.3}
+#'        \item{thinned.beta.1.vec}{ - thinned.beta.1.vec}
+#'        \item{thinned.beta.2.vec}{ - thinned.beta.2.vec}
+#'        \item{thinned.beta.3.vec}{ - thinned.beta.3.vec}
+#'        \item{thinned.sigma.sq}{ - thinned.sigma.sq}
+#'        \item{thinned.sigma.1.sq}{ - thinned.sigma.1.sq}
+#'        \item{thinned.sigma.2.sq}{ - thinned.sigma.2.sq}
+#'        \item{thinned.sigma.3.sq}{ - thinned.sigma.3.sq}
+#'        \item{mu}{ - mu}
+#'        \item{rho.sq}{ - rho.sq}
+#' @export
+#'
+#' @examples
+#' data("design_matrix")
+#' data("time_series_data")
+#' Y = time_series_data[, -c(1:2)]; X = design_matrix[, -c(1:2)]
+#' X = as.matrix(X); X = scale(X)
+#' seed.no = 1 ; burn = 20000 ; nmc = 20000 ; thin = 30; varrho = 0
+#' pro.var.theta.2 = 0.0002 ; pro.var.theta.3 = 0.05; mu = 0 ; rho.sq = 1
+#' t.values = list(); num_days = 14
+#' for(i in 1:nrow(Y)){
+#'   t.values[[i]] = c(1:(ncol(Y) - num_days))
+#' }
+#' Y = Y[, c(1:(ncol(Y) - num_days))]
+#' res_cov = BHRM_cov(Y = Y, X = X, t.values = t.values, seed.no = seed.no, burn = burn,
+#' nmc = nmc, thin = thin, varrho = varrho, pro.var.theta.2 = pro.var.theta.2,
+#' pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)
+BHRM_cov = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varrho = 0, pro.var.theta.2 = 0.0002, pro.var.theta.3 = 0.05, mu = 0, rho.sq = 1){
+  library("compiler")
+  BHRM_cov = cmpfun(BHRM_cov_temp)
+  res = BHRM_cov(Y,t.values,X,seed.no,burn,nmc,thin, varrho, pro.var.theta.2, pro.var.theta.3, mu, rho.sq)
+  res
+}
+
+
 

@@ -1,42 +1,5 @@
-#' Function that implement Bayesian Richard model without covariates for individual subjects (Note: because BRM is not hierarhical model, it is recommended to use the diffuse prior for the error vaiance => varrho = 0.1)
-#'
-#' @param Y - N-by-T time sereis data for N countries for T days
-#' @param t.values - N list for time perids for N countries
-#' @param seed.no - scalar for random seed
-#' @param burn - no of burn
-#' @param nmc - no of iterations after burn
-#' @param thin - no of thining for the nmc
-#' @param varrho - hyper-parameter for the diffuse prior error variances ~ IG(varrho,varrho)
-#' @param pro.var.theta.2 - proposal variances for the MH algorithms to sample from theta.2.i
-#' @param pro.var.theta.3 - proposal variances for the MH algorithms to sample from theta.3.i
-#' @param mu - mu
-#' @param rho.sq - rho.sq
-#'
-#' @return A list of
-#'        \item{thinned.theta.1.vec}{ - thinned.theta.1.vec}
-#'        \item{thinned.theta.2.vec}{ - thinned.theta.2.vec}
-#'        \item{thinned.theta.3.vec}{ - thinned.theta.3.vec}
-#'        \item{thinned.xi.vec}{ - thinned.xi.vec}
-#'        \item{thinned.alpha.1}{ - thinned.alpha.1}
-#'        \item{thinned.alpha.2}{ - thinned.alpha.2}
-#'        \item{thinned.alpha.3}{ - thinned.alpha.3}
-#'        \item{thinned.sigma.sq}{ - thinned.sigma.sq}
-#'        \item{thinned.sigma.1.sq}{ - thinned.sigma.1.sq}
-#'        \item{thinned.sigma.2.sq}{ - thinned.sigma.2.sq}
-#'        \item{thinned.sigma.3.sq}{ - thinned.sigma.3.sq}
-#'        \item{mu}{ - mu}
-#'        \item{rho.sq}{ - rho.sq}
-#' @export
-#'
-#' @examples
-#' data("time_series_data")
-#' Y = time_series_data[, -c(1:2)]
-#' seed.no = 1 ; burn = 20000 ; nmc = 20000 ; thin = 30; varrho = 0
-#' pro.var.theta.2 = 0.0002 ; pro.var.theta.3 = 0.05; mu = 0 ; rho.sq = 1
-#' res = BRM(Y = Y[1, ], seed.no = seed.no, burn = burn, nmc = nmc,
-#' thin = thin, varrho = varrho, pro.var.theta.2 = pro.var.theta.2,
-#' pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)
-BRM = function(Y,t.values,seed.no=1,burn=2000,nmc=2000,thin=10, varrho = 0.1, pro.var.theta.2 = 0.0002, pro.var.theta.3 = 0.05, mu = 1, rho.sq = 1){
+
+BRM_temp = function(Y,t.values,seed.no=1,burn=2000,nmc=2000,thin=10, varrho = 0.1, pro.var.theta.2 = 0.0002, pro.var.theta.3 = 0.05, mu = 1, rho.sq = 1){
 
   # Y: 1-by-T time sereis data for N countries for T days (row vector)
   # Index: i=1:N index for country || t=1:T index for time points
@@ -492,4 +455,51 @@ BRM = function(Y,t.values,seed.no=1,burn=2000,nmc=2000,thin=10, varrho = 0.1, pr
 
     return(res)
   }
+}
+
+#' Function that implement Bayesian Richard model without covariates for individual subjects (Note: because BRM is not hierarhical model, it is recommended to use the diffuse prior for the error vaiance => varrho = 0.1)
+#'
+#' @param Y - N-by-T time sereis data for N countries for T days
+#' @param t.values - N list for time perids for N countries
+#' @param seed.no - scalar for random seed
+#' @param burn - no of burn
+#' @param nmc - no of iterations after burn
+#' @param thin - no of thining for the nmc
+#' @param varrho - hyper-parameter for the diffuse prior error variances ~ IG(varrho,varrho)
+#' @param pro.var.theta.2 - proposal variances for the MH algorithms to sample from theta.2.i
+#' @param pro.var.theta.3 - proposal variances for the MH algorithms to sample from theta.3.i
+#' @param mu - mu
+#' @param rho.sq - rho.sq
+#'
+#' @return A list of
+#'        \item{thinned.theta.1.vec}{ - thinned.theta.1.vec}
+#'        \item{thinned.theta.2.vec}{ - thinned.theta.2.vec}
+#'        \item{thinned.theta.3.vec}{ - thinned.theta.3.vec}
+#'        \item{thinned.xi.vec}{ - thinned.xi.vec}
+#'        \item{thinned.alpha.1}{ - thinned.alpha.1}
+#'        \item{thinned.alpha.2}{ - thinned.alpha.2}
+#'        \item{thinned.alpha.3}{ - thinned.alpha.3}
+#'        \item{thinned.sigma.sq}{ - thinned.sigma.sq}
+#'        \item{thinned.sigma.1.sq}{ - thinned.sigma.1.sq}
+#'        \item{thinned.sigma.2.sq}{ - thinned.sigma.2.sq}
+#'        \item{thinned.sigma.3.sq}{ - thinned.sigma.3.sq}
+#'        \item{mu}{ - mu}
+#'        \item{rho.sq}{ - rho.sq}
+#' @export
+#'
+#' @examples
+#' data("time_series_data")
+#' Y = time_series_data[, -c(1:2)]
+#' seed.no = 1 ; burn = 20000 ; nmc = 20000 ; thin = 30; varrho = 0
+#' pro.var.theta.2 = 0.0002 ; pro.var.theta.3 = 0.05; mu = 0 ; rho.sq = 1
+#' num_days = 14; t.values = c(1:(ncol(Y) - num_days))
+#' Y = Y[, c(1:(ncol(Y) - num_days))]
+#' res = BRM(Y = Y[1, ], t.values = t.values, seed.no = seed.no, burn = burn,
+#' nmc = nmc, thin = thin, varrho = varrho, pro.var.theta.2 = pro.var.theta.2,
+#' pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)
+BRM = function(Y,t.values,seed.no=1,burn=2000,nmc=2000,thin=10, varrho = 0.1, pro.var.theta.2 = 0.0002, pro.var.theta.3 = 0.05, mu = 1, rho.sq = 1){
+  library("compiler")
+  BRM = cmpfun(BRM_temp)
+  res = BRM(Y,t.values,seed.no,burn,nmc,thin, varrho, pro.var.theta.2, pro.var.theta.3, mu, rho.sq)
+  res
 }
