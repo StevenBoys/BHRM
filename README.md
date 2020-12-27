@@ -72,6 +72,7 @@ We can use `var_sele` function to check the variable selection results.
 var_selection = var_sele(beta.vec = res_cov$thinned.theta.1.vec)
 # check the names of the top covariates selected
 var_selection$id_sele
+# [1] 10 30  7 15 19 23 28 27  2 24
 # plot the figure for 95% credible interval of each covariates
 var_selection$figure
 ```

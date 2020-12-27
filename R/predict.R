@@ -78,6 +78,9 @@ predict = function(model, Y, i, num_days = 14, conf = 0.95, seed = 5){
 #' @param num_days - integer that indicates the number of days to predict and the default value is 14.
 #' @param title - the title of the plot. If it's not specified, the plot won't include title.
 #' @param y_name - the name of the y axis. If it's not specified, the name for the y axis will be "Values".
+#' @param size_axis_text - the text size of y and x axis and the default value is 20
+#' @param size_axis_title - the text size of y and x title and the default value is 25
+#' @param size_plot_title - the text size of plot title and the default value is 35
 #'
 #' @return A plot that can see a comparison between the observations and predictions.
 #' @export
@@ -92,7 +95,8 @@ predict = function(model, Y, i, num_days = 14, conf = 0.95, seed = 5){
 #' pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)
 #' predict_list = predict(model, Y, 1)
 #' plot_RM(predict_list$prediction, Y[1, ], predict_list$upper, predict_list$lower)
-plot_RM = function(pred, y, upper = NULL, lower = NULL, num_days = 14, title = NULL, y_name = NULL){
+plot_RM = function(pred, y, upper = NULL, lower = NULL, num_days = 14, title = NULL, y_name = NULL,
+                   size_axis_text = 20, size_axis_title = 25, size_plot_title = 35){
   library(ggplot2)
   library(scales)
   library(ggthemes)
@@ -136,9 +140,9 @@ plot_RM = function(pred, y, upper = NULL, lower = NULL, num_days = 14, title = N
     geom_point(data = df_obs, mapping = aes(x = t.values, y = obs),size = 2.5, col = "#000000") +
     xlab("Date") + ylab(y_name) +
     theme(
-      axis.text=element_text(size=20),
-      axis.title=element_text(size=25),
-      plot.title = element_text(size = 35, face = "bold"))+
+      axis.text=element_text(size=size_axis_text),
+      axis.title=element_text(size=size_axis_title),
+      plot.title = element_text(size = size_plot_title, face = "bold"))+
     theme_hc() + scale_colour_hc() +
     ylim(y_min, y_max) +
     scale_y_continuous(labels=comma)
