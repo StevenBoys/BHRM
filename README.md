@@ -71,10 +71,12 @@ We can use `var_sele` function to check the variable selection results.
 # check the important factors for theta1
 var_selection = var_sele(beta.vec = res_cov$thinned.theta.1.vec)
 # check the names of the top covariates selected
-var_selection$names_sele
+var_selection$id_sele
 # plot the figure for 95% credible interval of each covariates
 var_selection$figure
 ```
+
+![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
 
 We can also use `predict` to make predictions and use `plot_RM` to make a plot and compare the real trajectory and predictions.
 ```
@@ -83,6 +85,8 @@ predict_list = predict(res_cov, Y, 1)
 # make a plot to see the performance of the predictions
 plot_RM(predict_list$prediction, Y[1, ])
 ```
+
+![](https://github.com/StevenBoys/BHRM/blob/main/Image/prediction.png?raw=true)
 
 
 ## References
