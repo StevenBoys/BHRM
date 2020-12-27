@@ -41,7 +41,7 @@ Richard_f = function(t, theta.1,theta.2, theta.3, xi){
 #' res = BRM(Y = Y[1, ], seed.no = seed.no, burn = burn, nmc = nmc,
 #' thin = thin, varrho = varrho, pro.var.theta.2 = pro.var.theta.2,
 #' pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)
-#' prediction = predict(model, Y, 1)
+#' predict_list = predict(model, Y, 1)
 predict = function(model, Y, i, num_days = 14, conf = 0.95, seed = 5){
   index_show = list()
   set.seed(seed)
@@ -69,4 +69,84 @@ predict = function(model, Y, i, num_days = 14, conf = 0.95, seed = 5){
   list(prediction = pred, upper = upper, lower = lower)
 }
 
+#' Function that make a plot and can see a comparison between the observations and predictions
+#'
+#' @param pred - a vector of the mean of predicted values.
+#' @param y - a vector of the observations
+#' @param upper - the upper bound of the predicted values. If it's not specified, the plot won't draw the interval.
+#' @param lower - the lower bound of the predicted values. If it's not specified, the plot won't draw the interval.
+#' @param num_days - integer that indicates the number of days to predict and the default value is 14.
+#' @param title - the title of the plot. If it's not specified, the plot won't include title.
+#' @param y_name - the name of the y axis. If it's not specified, the name for the y axis will be "Values".
+#'
+#' @return A plot that can see a comparison between the observations and predictions.
+#' @export
+#'
+#' @examples
+#' data("time_series_data")
+#' Y = time_series_data[, -c(1:2)]
+#' seed.no = 1 ; burn = 20000 ; nmc = 20000 ; thin = 30; varrho = 0
+#' pro.var.theta.2 = 0.0002 ; pro.var.theta.3 = 0.05; mu = 0 ; rho.sq = 1
+#' res = BRM(Y = Y[1, ], seed.no = seed.no, burn = burn, nmc = nmc,
+#' thin = thin, varrho = varrho, pro.var.theta.2 = pro.var.theta.2,
+#' pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)
+#' predict_list = predict(model, Y, 1)
+#' plot_RM(predict_list$prediction, Y[1, ], predict_list$upper, predict_list$lower)
+plot_RM = function(pred, y, upper = NULL, lower = NULL, num_days = 14, title = NULL, y_name = NULL){
+  library(ggplot2)
 
+  # define data frame for the posterior predictive mean
+  t.values = c(1:length(pred))
+  df_mean = data.frame(cbind(t.values, pred))
+  names(df_mean) <- c("t.values", "post_mean")
+
+  # define the data frame for the observations
+  df_obs = as.data.frame(cbind(c(1:length(y)), y))
+  names(df_obs) = c("t.values","obs")
+
+  if(!is.null(upper[0])){
+    # define the data frame for the pointwise posterior predictive interval
+    t.values = c((length(y)+1):length(pred))
+    df_cov = data.frame(cbind(t.values, lower[t.values], upper[t.values]))
+    names(df_cov) <- c("t.values", "lower_bound", "upper_bound")
+    df_cov_polygon = as.data.frame(cbind(c(df_cov$t.values,rev(df_cov$t.values)),
+                                         c(df_cov$lower_bound,rev(df_cov$upper_bound)))  )
+    names(df_cov_polygon) = c("t.values","bounds")
+
+    # calculate the range of the y axis
+    y_min = min(c(y, pred, lower[t.values], upper[t.values]))
+    y_max = max(c(y, pred, lower[t.values], upper[t.values]))
+  }else{
+    # calculate the range of the y axis
+    y_min = min(c(y, pred))
+    y_max = max(c(y, pred))
+  }
+
+  # set the name of y axis
+  if(is.null(y_name)){
+    y_name = "Values"
+  }
+
+  # make the plot based on the defined data frame
+  g.res = ggplot() +
+    geom_line(data = df_mean, mapping = aes(x = t.values, y = post_mean), col = "blue", size = 1.5) +
+    geom_point(data = df_obs, mapping = aes(x = t.values, y = obs),size = 2.5, col = "#000000") +
+    xlab("Date") + ylab(y_name) +
+    theme(
+      axis.text=element_text(size=40),
+      axis.title=element_text(size=50),
+      plot.title = element_text(size = 70, face = "bold"))+
+    theme_hc()+ scale_colour_hc() +
+    ylim(y_min, y_max) +
+    scale_y_continuous(labels=comma)
+
+  if(!is.null(upper[0])){
+    g.res = g.res +
+      geom_polygon(data = df_cov_polygon, mapping = aes(x = t.values, y = bounds), fill = "#87CEEB", alpha = 0.5)
+  }
+  if(!is.null(title)){
+    g.res = g.res + ggtitle(title)
+  }
+
+  return(g.res)
+}
