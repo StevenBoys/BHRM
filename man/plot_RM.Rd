@@ -11,7 +11,10 @@ plot_RM(
   lower = NULL,
   num_days = 14,
   title = NULL,
-  y_name = NULL
+  y_name = NULL,
+  size_axis_text = 20,
+  size_axis_title = 25,
+  size_plot_title = 35
 )
 }
 \arguments{
@@ -28,6 +31,12 @@ plot_RM(
 \item{title}{- the title of the plot. If it's not specified, the plot won't include title.}
 
 \item{y_name}{- the name of the y axis. If it's not specified, the name for the y axis will be "Values".}
+
+\item{size_axis_text}{- the text size of y and x axis and the default value is 20}
+
+\item{size_axis_title}{- the text size of y and x title and the default value is 25}
+
+\item{size_plot_title}{- the text size of plot title and the default value is 35}
 }
 \value{
 A plot that can see a comparison between the observations and predictions.

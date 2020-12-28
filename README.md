@@ -8,6 +8,8 @@ This R package is designed to help users to train the Bayesian Hierarchical Rich
 
 <img src="https://latex.codecogs.com/gif.latex?f(t&space;;&space;\theta_1,&space;\theta_2,&space;\theta_3,&space;\xi)=\theta_1&space;\cdot[&space;1&space;&plus;&space;\xi&space;\cdot&space;\exp&space;\{-\theta_2&space;\cdot&space;(&space;t&space;-&space;\theta_3)&space;\}&space;]^{-1/\xi}" title="f(t ; \theta_1, \theta_2, \theta_3, \xi)=\theta_1 \cdot[ 1 + \xi \cdot \exp \{-\theta_2 \cdot ( t - \theta_3) \} ]^{-1/\xi}" />
 
+![](https://github.com/StevenBoys/BHRM/blob/main/Image/Richard_f.tif?raw=true)
+
 The model can uncover a hidden pattern from growth curves. At the same time, users can choose covariate version and identify important predictors that largely affect on the shape of the curve f in terms of the three curve parameters.
 
 The details of the model is as below:
@@ -26,7 +28,11 @@ devtools::install_github("StevenBoys/BHRM", build_vignettes = T)
 library(BHRM)
 ```
 
-Take the COVID-19 data as an example. The time_series_data include infection trajectories for several global countries and the design_matrix include potential covariates. 
+Take the COVID-19 data as an example. 
+
+![](https://github.com/StevenBoys/BHRM/blob/main/Image/infect_COVID-19.tif?raw=true)
+
+The time_series_data include infection trajectories for several global countries and the design_matrix include potential covariates. 
 ```
 # load the data
 data("design_matrix")
@@ -70,9 +76,11 @@ We can use `var_sele` function to check the variable selection results.
 ```
 # check the important factors for theta1
 var_selection = var_sele(beta.vec = res_cov$thinned.theta.1.vec)
+
 # check the names of the top covariates selected
 var_selection$id_sele
 # [1] 10 30  7 15 19 23 28 27  2 24
+
 # plot the figure for 95% credible interval of each covariates
 var_selection$figure
 ```
@@ -89,6 +97,19 @@ plot_RM(predict_list$prediction, Y[1, ])
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/prediction.png?raw=true)
 
+The flat time point is defined as the the time point whereat only (1−gamma)theta1 cases can maximally take place to reach the final epidemic size.
+
+![](https://github.com/StevenBoys/BHRM/blob/main/Image/flat_time_point.tif?raw=true)
+
+We can also compute the flat point of the estimated Richard curve using function `flat_time_point`.
+```
+theta.1 = mean(res_cov$thinned.theta.1.vec[1, ])
+theta.2 = mean(res_cov$thinned.theta.2.vec[1, ])
+theta.3 = mean(res_cov$thinned.theta.3.vec[1, ])
+xi = mean(res_cov$thinned.xi.vec[1, ])
+flat_time_point(theta.1,theta.2,theta.3,xi)
+# 156.0234
+```
 
 ## References
 

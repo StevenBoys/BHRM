@@ -30,8 +30,10 @@ data("time_series_data")
 Y = time_series_data[, -c(1:2)]
 seed.no = 1 ; burn = 20000 ; nmc = 20000 ; thin = 30; varrho = 0
 pro.var.theta.2 = 0.0002 ; pro.var.theta.3 = 0.05; mu = 0 ; rho.sq = 1
-res = BRM(Y = Y[1, ], seed.no = seed.no, burn = burn, nmc = nmc,
-thin = thin, varrho = varrho, pro.var.theta.2 = pro.var.theta.2,
+num_days = 14; t.values = c(1:(ncol(Y) - num_days))
+Y = Y[, c(1:(ncol(Y) - num_days))]
+res = BRM(Y = Y[1, ], t.values = t.values, seed.no = seed.no, burn = burn,
+nmc = nmc, thin = thin, varrho = varrho, pro.var.theta.2 = pro.var.theta.2,
 pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)
 predict_list = predict(model, Y, 1)
 }
