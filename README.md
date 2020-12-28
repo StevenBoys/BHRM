@@ -8,7 +8,7 @@ This R package is designed to help users to train the Bayesian Hierarchical Rich
 
 <img src="https://latex.codecogs.com/gif.latex?f(t&space;;&space;\theta_1,&space;\theta_2,&space;\theta_3,&space;\xi)=\theta_1&space;\cdot[&space;1&space;&plus;&space;\xi&space;\cdot&space;\exp&space;\{-\theta_2&space;\cdot&space;(&space;t&space;-&space;\theta_3)&space;\}&space;]^{-1/\xi}" title="f(t ; \theta_1, \theta_2, \theta_3, \xi)=\theta_1 \cdot[ 1 + \xi \cdot \exp \{-\theta_2 \cdot ( t - \theta_3) \} ]^{-1/\xi}" />
 
-![](https://github.com/StevenBoys/BHRM/blob/main/Image/Richard_f.tif?raw=true)
+![](https://github.com/StevenBoys/BHRM/blob/main/Image/Richard_f.png?raw=true)
 
 The model can uncover a hidden pattern from growth curves. At the same time, users can choose covariate version and identify important predictors that largely affect on the shape of the curve f in terms of the three curve parameters.
 
@@ -30,7 +30,7 @@ library(BHRM)
 
 Take the COVID-19 data as an example. 
 
-![](https://github.com/StevenBoys/BHRM/blob/main/Image/infect_COVID-19.tif?raw=true)
+![](https://github.com/StevenBoys/BHRM/blob/main/Image/infect_COVID-19.png?raw=true)
 
 The time_series_data include infection trajectories for several global countries and the design_matrix include potential covariates. 
 ```
@@ -99,7 +99,7 @@ plot_RM(predict_list$prediction, Y[1, ])
 
 The flat time point is defined as the the time point whereat only (1−gamma)theta1 cases can maximally take place to reach the final epidemic size.
 
-![](https://github.com/StevenBoys/BHRM/blob/main/Image/flat_time_point.tif?raw=true)
+![](https://github.com/StevenBoys/BHRM/blob/main/Image/flat_time_point.png?raw=true)
 
 We can also compute the flat point of the estimated Richard curve using function `flat_time_point`.
 ```
