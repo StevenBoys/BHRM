@@ -10,7 +10,7 @@ This R package is designed to help users to train the Bayesian Hierarchical Rich
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/Richard_f.png?raw=true)
 
-The model can uncover a hidden pattern from growth curves. At the same time, users can choose covariate version and identify important predictors that largely affect on the shape of the curve f in terms of the three curve parameters.
+The model can uncover a hidden pattern from growth curves. At the same time, users can choose covariate version and identify important predictors that largely affect on the shape of the curve in terms of the three curve parameters.
 
 The details of the model is as below:
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/BHRM_formula.png?raw=true)
