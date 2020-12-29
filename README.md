@@ -3,10 +3,13 @@
 ## Contents
 * [Overview]
 * [Installation]
-* [Example]
+* [Examples]
 * [References]
 
-
+## Overview
+## Installation
+## Examples
+## References
 
 # BHRM: Bayesian Hierarchical Richard Model
 
