@@ -8,6 +8,9 @@
 * [References](#References)
 
 ## Overview
+An R package of the paper titled  **["Estimation of COVID-19 spread curves integrating global data and borrowing information", PLOS ONE, (2020)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0236860)** are available here. This is a joint project of a Ph.D. candidate [Se Yoon Lee](https://sites.google.com/view/seyoonlee) (seyoonlee@stat.tamu.edu) and a University Distinguished Professor [Bani K. Mallick](https://www.stat.tamu.edu/~bmallick/) (bmallick@stat.tamu.edu) at Texas A&M University. We upload some relevant R codes for the spatial Weibull model for the purpose of (i) posterior inference (via a Gibbs sampler) to train shale oil wells dataset and (ii) spatial prediction at a new test location based on the trained results. 
+
+
 ## Installation
 ## BHRM
 ## Examples
