@@ -3,13 +3,13 @@
 ## Contents
 * [Overview](#overview)
 * [Installation](#installation)
-* [Bayesian Hierarchical Richards Model]
+* [BHRM](#bhrm)
 * [Examples](#examples)
 * [References](#References)
 
 ## Overview
 ## Installation
-## Bayesian Hierarchical Richards Model
+## BHRM
 ## Examples
 ## References
 
