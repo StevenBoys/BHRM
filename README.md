@@ -1,4 +1,4 @@
-# BHRM: R package to implement Bayesian Hierarchical Richard Model (BHRM) to Predict Infection Trajectories from Multiple Countries and Identify Risk Factors for the COVID-19 Outbreak
+# BHRM: An R package implementing Bayesian Hierarchical Richard Model (BHRM) to Extrapolate Infection Trajectories and Identify Risk Factors for the COVID-19 Outbreak by Borrowing Information from Multiple Countries 
 
 Bowen Lei, Se Yoon Lee, Bani Mallick
 
