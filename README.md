@@ -17,6 +17,14 @@ The sources of the datasets are:
 4. [National Oceanic and Atmospheric Administration](noaa.gov)
 
 ## Installation
+
+```
+require(devtools)
+devtools::install_github("StevenBoys/BHRM", build_vignettes = T)
+library(BHRM)
+```
+
+
 ## BHRM
 ## Examples
 ## References
