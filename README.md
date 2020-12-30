@@ -1,6 +1,6 @@
 # BHRM: An R package implementing Bayesian Hierarchical Richards Model to Estimate Infection Trajectories and Identify Risk Factors for the COVID-19 Outbreak
 
-![](https://github.com/StevenBoys/BHRM/blob/main/Image/Global_average2.png)
+![Figure 1: Extrapolated infectory for grand average over 40 countries](https://github.com/StevenBoys/BHRM/blob/main/Image/Global_average2.png)
 
 ## Contents
 * [Overview](#overview)
@@ -13,20 +13,23 @@
 An R package `BHRM` of the paper titled  **["Estimation of COVID-19 spread curves integrating global data and borrowing information", PLOS ONE, (2020)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0236860)** are available here. This is a joint project of Ph.D. students, Bowen Lei (bowenlei@stat.tamu.edu) and [Se Yoon Lee](https://sites.google.com/view/seyoonlee) (seyoonlee@stat.tamu.edu), and a University Distinguished Professor [Bani K. Mallick](https://www.stat.tamu.edu/~bmallick/) (bmallick@stat.tamu.edu) at Texas A&M University. R package `BHRM` contains relevant R codes to implement Bayesian Hierarchical Richards Model (BHRM) applied to the COVID-19 dataset obtained from multiple countries. 
 
 The sources of the datasets are: 
-1. [Center for Systems Science and Engineering at Johns Hopkins University](github.com/CSSEGISandData/COVID-19)
-2. [World Bank](#data.worldbank.org)
-3. [World Health Organization](apps.who.int/gho/data/node.main)
-4. [National Oceanic and Atmospheric Administration](noaa.gov)
+1. [Center for Systems Science and Engineering at Johns Hopkins University](https://github.com/CSSEGISandData/COVID-19)
+2. [World Bank](https://data.worldbank.org/)
+3. [World Health Organization](https://apps.who.int/gho/data/node.main)
+4. [National Oceanic and Atmospheric Administration](https://www.noaa.gov/)
 
 ## Installation
 
 ```
 require(devtools)
-devtools::install_github("StevenBoys/BHRM", build_vignettes = T)
+devtools::install_github("StevenBoys/BHRM")
 library(BHRM)
 ```
 
 ## BHRM
+The details of the model is as below:
+![Figure 2: A hierarchy of Bayesian Hierarchical Richard  Model](https://github.com/StevenBoys/BHRM/blob/main/Image/BHRM_formula.png?raw=true)
+
 ## Examples
 ## References
 
@@ -34,24 +37,13 @@ library(BHRM)
 
 [2] [Davidian, M., and Giltinan, D. M. (1995). Nonlinear models for repeated measurement data (Vol. 62). CRC press.](https://books.google.com/books?hl=en&lr=&id=0eSIBPAL4qsC&oi=fnd&pg=IA7&dq=nonlinear+mixed+effect+model+giltnan&ots=9frDPH3F4J&sig=L5Wz91waGu447OdyYHQ8Vp5ckQc#v=onepage&q=nonlinear%20mixed%20effect%20model%20giltnan&f=false)
 
-# BHRM: Bayesian Hierarchical Richard Model
 
-This R package is designed to help users to train the Bayesian Hierarchical Richard Model (BHRM) which is based on the Richards curve:
 
-<img src="https://latex.codecogs.com/gif.latex?f(t&space;;&space;\theta_1,&space;\theta_2,&space;\theta_3,&space;\xi)=\theta_1&space;\cdot[&space;1&space;&plus;&space;\xi&space;\cdot&space;\exp&space;\{-\theta_2&space;\cdot&space;(&space;t&space;-&space;\theta_3)&space;\}&space;]^{-1/\xi}" title="f(t ; \theta_1, \theta_2, \theta_3, \xi)=\theta_1 \cdot[ 1 + \xi \cdot \exp \{-\theta_2 \cdot ( t - \theta_3) \} ]^{-1/\xi}" />
 
-![](https://github.com/StevenBoys/BHRM/blob/main/Image/Richard_f.png?raw=true)
 
 The model can uncover a hidden pattern from growth curves. At the same time, users can choose covariate version and identify important predictors that largely affect on the shape of the curve in terms of the three curve parameters.
 
-The details of the model is as below:
-![](https://github.com/StevenBoys/BHRM/blob/main/Image/BHRM_formula.png?raw=true)
 
-## Installation
-
-```
-require(devtools)
-devtools::install_github("StevenBoys/BHRM", build_vignettes = T)
 ```
 
 ## Usage
