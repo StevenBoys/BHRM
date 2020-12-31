@@ -29,38 +29,23 @@ library(BHRM)
 ## BHRM
 Richards growth curve has been widely used to describe epidemiology for real-time prediction of outbreak of diseases. We propose a Bayesian hierarchical model based on the Richards curve (BHRM) to accommodate the global COVID-19 data. We aim to uncover a hidden pattern from the infection trajectory for each country and then extrapolate the curve. At the same time, we want to identify important predictors that largely affect on the shape the curve. The details of the hierarchy of the model is shown in the figure below.
 
-<div align=center><img src="https://github.com/StevenBoys/BHRM/blob/main/Image/BHRM_formula.png?raw=true" width="200" height="150" alt=" "/></div>
+<div align=center><img src="https://github.com/StevenBoys/BHRM/blob/main/Image/BHRM_formula.png?raw=true" width="600" height="450" alt=" "/></div>
 
 ## Examples
-
-
-## References
-
-[1] [Se Yoon Lee, Bowen Lei, and Bani K. Mallick. (2020) “Estimation of COVID19 spread curves integrating global data and borrowing information,” PLOS ONE](https://journals.plos.org/plosone/article/authors?id=10.1371/journal.pone.0236860)
-
-[2] [Davidian, M., and Giltinan, D. M. (1995). Nonlinear models for repeated measurement data (Vol. 62). CRC press.](https://books.google.com/books?hl=en&lr=&id=0eSIBPAL4qsC&oi=fnd&pg=IA7&dq=nonlinear+mixed+effect+model+giltnan&ots=9frDPH3F4J&sig=L5Wz91waGu447OdyYHQ8Vp5ckQc#v=onepage&q=nonlinear%20mixed%20effect%20model%20giltnan&f=false)
-
-
-
-## Usage
-
-```
-library(BHRM)
-```
-
-Take the COVID-19 data as an example. 
+We take the `time_series_data` and `design_matrix` in this package as an example. `time_series_data` include infection growth curve for 30 global countries and `design_matrix` include 20 potential predictors.
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/infect_COVID-19.png?raw=true)
 
-The time_series_data include infection trajectories for several global countries and the design_matrix include potential covariates. 
+Firstly, we load the data.
 ```
+library(BHRM)
 # load the data
 data("design_matrix")
 data("time_series_data")
 Y = time_series_data[, -c(1:2)]; X = design_matrix[, -c(1:2)]
 ```
 
-We choose the Bayesian hierarchical Richard model with covariates to analyse the data.
+Then, we choose the Bayesian hierarchical Richard model with covariates to analyse the data.
 ```
 # set the hyperparameters
 seed.no = 1 ; burn = 20000 ; nmc = 20000 ; thin = 30; varrho = 0
@@ -91,7 +76,7 @@ var_selection$figure
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
 
-We can also use `predict` to make predictions and use `plot_RM` to make a plot and compare the real trajectory and predictions.
+We can also use `extrapolate` to make extrapolations and use `plot_RM` to make a plot and compare the real trajectory and extrapolated values.
 ```
 # make predictions
 predict_list = predict(res_cov, Y, 1)
@@ -100,10 +85,6 @@ plot_RM(predict_list$prediction, Y[1, ])
 ```
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/prediction.png?raw=true)
-
-The flat time point is defined as the the time point whereat only (1−gamma)theta1 cases can maximally take place to reach the final epidemic size.
-
-![](https://github.com/StevenBoys/BHRM/blob/main/Image/flat_time_point.png?raw=true)
 
 We can also compute the flat point of the estimated Richard curve using function `flat_time_point`.
 ```
@@ -117,4 +98,7 @@ flat_time_point(theta.1,theta.2,theta.3,xi)
 
 ## References
 
-[1] S. Y. Lee, B. Lei, and B. K. Mallick, Estimation of COVID-19 spread curves integrating global data and borrowing information, PLoS ONE 15 (7), (2020).
+[1] [Se Yoon Lee, Bowen Lei, and Bani K. Mallick. (2020) “Estimation of COVID19 spread curves integrating global data and borrowing information,” PLOS ONE](https://journals.plos.org/plosone/article/authors?id=10.1371/journal.pone.0236860)
+
+[2] [Davidian, M., and Giltinan, D. M. (1995). Nonlinear models for repeated measurement data (Vol. 62). CRC press.](https://books.google.com/books?hl=en&lr=&id=0eSIBPAL4qsC&oi=fnd&pg=IA7&dq=nonlinear+mixed+effect+model+giltnan&ots=9frDPH3F4J&sig=L5Wz91waGu447OdyYHQ8Vp5ckQc#v=onepage&q=nonlinear%20mixed%20effect%20model%20giltnan&f=false)
+
