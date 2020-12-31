@@ -27,8 +27,8 @@ library(BHRM)
 ```
 
 ## BHRM
-The details of the model is as below:
-![Figure 2: A hierarchy of Bayesian Hierarchical Richard  Model](https://github.com/StevenBoys/BHRM/blob/main/Image/BHRM_formula.png?raw=true)
+Richards growth curve has been widely used to describe epidemiology for real-time prediction of outbreak of diseases. We propose a Bayesian hierarchical model based on the Richards curve (BHRM) to accommodate the global COVID-19 data. We aim to uncover a hidden pattern from the infection trajectory for each country and then extrapolate the curve. At the same time, we want to identify important predictors that largely affect on the shape the curve. The details of the hierarchy of the model is shown in the figure below.
+![Figure 2: A hierarchy of Bayesian Hierarchical Richard  Model](https://github.com/StevenBoys/BHRM/blob/main/Image/BHRM_formula.png?raw=true){:class="img-responsive"}
 
 ## Examples
 ## References
