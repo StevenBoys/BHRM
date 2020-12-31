@@ -16,7 +16,8 @@ BHRM_cov(
   pro.var.theta.2 = 2e-04,
   pro.var.theta.3 = 0.05,
   mu = 0,
-  rho.sq = 1
+  rho.sq = 1,
+  standardize = TRUE
 )
 }
 \arguments{
@@ -43,6 +44,8 @@ BHRM_cov(
 \item{mu}{- mu}
 
 \item{rho.sq}{- rho.sq}
+
+\item{standardize}{- a logical value that indicates whether standardize the covariates or not}
 }
 \value{
 A list of

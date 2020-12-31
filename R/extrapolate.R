@@ -18,19 +18,19 @@ Richard_f = function(t, theta.1,theta.2, theta.3, xi){
   return(res)
 }
 
-#' Function that make predictions based on the trained model
+#' Function that make extrapolation based on the trained model
 #'
 #' @param model - a list which is the output of function BHRM_cov, BHRM, or BRM
 #' @param Y - N-by-T time sereis training data for N countries for T days which are used to get the model
-#' @param i - index that indicates which subject will be predicted
-#' @param num_days - integer that indicates the number of days to predict and the default value is 14
+#' @param i - index that indicates which subject will be extrapolated
+#' @param num_days - integer that indicates the number of days to extrapolate and the default value is 14
 #' @param conf - a numerical value between 0 and 1 which indicates the confidence level of the interval
 #' @param seed - random seed set in the function
 #'
 #' @return A list of
-#'        \item{prediction}{ - the predicted values}
-#'        \item{upper}{ - 95% upper bound for the predicted values}
-#'        \item{lower}{ - 95% lower bound for the predicted values}
+#'        \item{mean}{ - the extrapolated values}
+#'        \item{upper}{ - 95% upper bound for the extrapolated values}
+#'        \item{lower}{ - 95% lower bound for the extrapolated values}
 #' @export
 #'
 #' @examples
@@ -43,11 +43,11 @@ Richard_f = function(t, theta.1,theta.2, theta.3, xi){
 #' res = BRM(Y = Y[1, ], t.values = t.values, seed.no = seed.no, burn = burn,
 #' nmc = nmc, thin = thin, varrho = varrho, pro.var.theta.2 = pro.var.theta.2,
 #' pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)
-#' predict_list = predict(model, Y, 1)
-predict = function(model, Y, i, num_days = 14, conf = 0.95, seed = 5){
+#' extra_list = extrapolate(model, Y, 1)
+extrapolate = function(model, Y, i, num_days = 14, conf = 0.95, seed = 5){
   index_show = list()
   set.seed(seed)
-  # get the prediction mean
+  # get the extrapolated mean
   t.values = c(1:(ncol(Y)+num_days))
   y.temp = matrix(0, nrow = ncol(model$thinned.theta.1.vec), ncol = length(t.values))
   for (t in 1:length(t.values)){
@@ -57,34 +57,33 @@ predict = function(model, Y, i, num_days = 14, conf = 0.95, seed = 5){
              theta.2 = model$thinned.theta.2.vec[i, s],
              theta.3 = model$thinned.theta.3.vec[i, s],
              xi = model$thinned.xi.vec[i, s])
-      sigma.sq = model$thinned.sigma.sq[s]
-      y.temp[s,t] = rnorm(1, mu, sqrt(sigma.sq))
+      y.temp[s,t] = mu
     }
   }
-  pred = round(colMeans(y.temp))
-  # get the prediction interval
+  mean = round(colMeans(y.temp))
+  # get the confidence interval
   up = 1 - (1 - conf)/2
   low = (1 - conf)/2
   upper = apply(y.temp, 2, function(t)quantile(t, up))
   lower = apply(y.temp, 2, function(t)quantile(t, low))
 
-  list(prediction = pred, upper = upper, lower = lower)
+  list(mean = mean, upper = upper, lower = lower)
 }
 
-#' Function that make a plot and can see a comparison between the observations and predictions
+#' Function that make a plot and can see a comparison between the observations and extrapolations
 #'
-#' @param pred - a vector of the mean of predicted values.
+#' @param mean - a vector of the mean of extrapolated values.
 #' @param y - a vector of the observations
-#' @param upper - the upper bound of the predicted values. If it's not specified, the plot won't draw the interval.
-#' @param lower - the lower bound of the predicted values. If it's not specified, the plot won't draw the interval.
-#' @param num_days - integer that indicates the number of days to predict and the default value is 14.
+#' @param upper - the upper bound of the extrapolated values. If it's not specified, the plot won't draw the interval.
+#' @param lower - the lower bound of the extrapolated values. If it's not specified, the plot won't draw the interval.
+#' @param num_days - integer that indicates the number of days to extrapolate and the default value is 14.
 #' @param title - the title of the plot. If it's not specified, the plot won't include title.
 #' @param y_name - the name of the y axis. If it's not specified, the name for the y axis will be "Values".
 #' @param size_axis_text - the text size of y and x axis and the default value is 20
 #' @param size_axis_title - the text size of y and x title and the default value is 25
 #' @param size_plot_title - the text size of plot title and the default value is 35
 #'
-#' @return A plot that can see a comparison between the observations and predictions.
+#' @return A plot that can see a comparison between the observations and extrapolations.
 #' @export
 #'
 #' @examples
@@ -95,17 +94,17 @@ predict = function(model, Y, i, num_days = 14, conf = 0.95, seed = 5){
 #' res = BRM(Y = Y[1, ], seed.no = seed.no, burn = burn, nmc = nmc,
 #' thin = thin, varrho = varrho, pro.var.theta.2 = pro.var.theta.2,
 #' pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)
-#' predict_list = predict(model, Y, 1)
-#' plot_RM(predict_list$prediction, Y[1, ], predict_list$upper, predict_list$lower)
-plot_RM = function(pred, y, upper = NULL, lower = NULL, num_days = 14, title = NULL, y_name = NULL,
+#' extra_list = extrapolate(model, Y, 1)
+#' plot_RM(extra_list$mean, Y[1, ], extra_list$upper, extra_list$lower)
+plot_RM = function(mean, y, upper = NULL, lower = NULL, num_days = 14, title = NULL, y_name = NULL,
                    size_axis_text = 20, size_axis_title = 25, size_plot_title = 35){
   library(ggplot2)
   library(scales)
   library(ggthemes)
 
-  # define data frame for the posterior predictive mean
-  t.values = c(1:length(pred))
-  df_mean = data.frame(cbind(t.values, pred))
+  # define data frame for the mean values
+  t.values = c(1:length(mean))
+  df_mean = data.frame(cbind(t.values, mean))
   names(df_mean) <- c("t.values", "post_mean")
 
   # define the data frame for the observations
@@ -114,8 +113,8 @@ plot_RM = function(pred, y, upper = NULL, lower = NULL, num_days = 14, title = N
   names(df_obs) = c("t.values","obs")
 
   if(!is.null(upper[0])){
-    # define the data frame for the pointwise posterior predictive interval
-    t.values = c((length(y)+1):length(pred))
+    # define the data frame for the pointwise confidence interval
+    t.values = c((length(y)+1):length(mean))
     df_cov = data.frame(cbind(t.values, lower[t.values], upper[t.values]))
     names(df_cov) <- c("t.values", "lower_bound", "upper_bound")
     df_cov_polygon = as.data.frame(cbind(c(df_cov$t.values,rev(df_cov$t.values)),
@@ -123,12 +122,12 @@ plot_RM = function(pred, y, upper = NULL, lower = NULL, num_days = 14, title = N
     names(df_cov_polygon) = c("t.values","bounds")
 
     # calculate the range of the y axis
-    y_min = min(c(y, pred, lower[t.values], upper[t.values]))
-    y_max = max(c(y, pred, lower[t.values], upper[t.values]))
+    y_min = min(c(y, mean, lower[t.values], upper[t.values]))
+    y_max = max(c(y, mean, lower[t.values], upper[t.values]))
   }else{
     # calculate the range of the y axis
-    y_min = min(c(y, pred))
-    y_max = max(c(y, pred))
+    y_min = min(c(y, mean))
+    y_max = max(c(y, mean))
   }
 
   # set the name of y axis

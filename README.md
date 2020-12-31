@@ -28,9 +28,11 @@ library(BHRM)
 
 ## BHRM
 Richards growth curve has been widely used to describe epidemiology for real-time prediction of outbreak of diseases. We propose a Bayesian hierarchical model based on the Richards curve (BHRM) to accommodate the global COVID-19 data. We aim to uncover a hidden pattern from the infection trajectory for each country and then extrapolate the curve. At the same time, we want to identify important predictors that largely affect on the shape the curve. The details of the hierarchy of the model is shown in the figure below.
-![Figure 2: A hierarchy of Bayesian Hierarchical Richard  Model](https://github.com/StevenBoys/BHRM/blob/main/Image/BHRM_formula.png?raw=true){:class="img-responsive"}
+<div align=center>![](https://github.com/StevenBoys/BHRM/blob/main/Image/BHRM_formula.png?raw=true)
 
 ## Examples
+
+
 ## References
 
 [1] [Se Yoon Lee, Bowen Lei, and Bani K. Mallick. (2020) “Estimation of COVID19 spread curves integrating global data and borrowing information,” PLOS ONE](https://journals.plos.org/plosone/article/authors?id=10.1371/journal.pone.0236860)
@@ -38,13 +40,6 @@ Richards growth curve has been widely used to describe epidemiology for real-tim
 [2] [Davidian, M., and Giltinan, D. M. (1995). Nonlinear models for repeated measurement data (Vol. 62). CRC press.](https://books.google.com/books?hl=en&lr=&id=0eSIBPAL4qsC&oi=fnd&pg=IA7&dq=nonlinear+mixed+effect+model+giltnan&ots=9frDPH3F4J&sig=L5Wz91waGu447OdyYHQ8Vp5ckQc#v=onepage&q=nonlinear%20mixed%20effect%20model%20giltnan&f=false)
 
 
-
-
-
-The model can uncover a hidden pattern from growth curves. At the same time, users can choose covariate version and identify important predictors that largely affect on the shape of the curve in terms of the three curve parameters.
-
-
-```
 
 ## Usage
 
@@ -62,22 +57,6 @@ The time_series_data include infection trajectories for several global countries
 data("design_matrix")
 data("time_series_data")
 Y = time_series_data[, -c(1:2)]; X = design_matrix[, -c(1:2)]
-# standardize the design matrix
-norm_vec = function( x , y = rep(0,length(x)) ) {
-  norm_vector = sqrt(sum((x-y)^2))
-  
-  if (norm_vector == Inf){
-    norm_vector = 1e+308
-  } else {
-    norm_vector = norm_vector
-  } 
-  return(norm_vector)
-}
-for (j in 1:ncol(X)){
-  X[,j] = X[,j] - mean(X[,j])
-  X[,j] = X[,j]/norm_vec(x = X[,j], y = rep(0,nrow(X)))
-}
-X = as.matrix(X)
 ```
 
 We choose the Bayesian hierarchical Richard model with covariates to analyse the data.
