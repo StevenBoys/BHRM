@@ -29,7 +29,7 @@ library(BHRM)
 ## BHRM
 Richards growth curve has been widely used to describe epidemiology for real-time prediction of outbreak of diseases. We propose a Bayesian hierarchical model based on the Richards curve (BHRM) to accommodate the global COVID-19 data. We aim to uncover a hidden pattern from the infection trajectory for each country and then extrapolate the curve. At the same time, we want to identify important predictors that largely affect on the shape the curve. The details of the hierarchy of the model is shown in the figure below.
 
-<div align=center><img src="https://github.com/StevenBoys/BHRM/blob/main/Image/BHRM_formula.png?raw=true" width="600" height="450" alt=" "/></div>
+<div align=center><img src="https://github.com/StevenBoys/BHRM/blob/main/Image/BHRM_formula.png?raw=true" width="800" height="450" alt=" "/></div>
 
 ## Examples
 We take the `time_series_data` and `design_matrix` in this package as an example. `time_series_data` include infection growth curve for 30 global countries and `design_matrix` include 20 potential predictors.
@@ -45,7 +45,7 @@ data("time_series_data")
 Y = time_series_data[, -c(1:2)]; X = design_matrix[, -c(1:2)]
 ```
 
-Then, we choose the Bayesian hierarchical Richard model with covariates to analyse the data.
+Then, we choose the Bayesian hierarchical Richards model with covariates to analyse the data.
 ```
 # set the hyperparameters
 seed.no = 1 ; burn = 20000 ; nmc = 20000 ; thin = 30; varrho = 0
@@ -86,7 +86,7 @@ plot_RM(predict_list$prediction, Y[1, ])
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/prediction.png?raw=true)
 
-We can also compute the flat point of the estimated Richard curve using function `flat_time_point`.
+We can also compute the flat point of the estimated Richards curve using function `flat_time_point`.
 ```
 theta.1 = mean(res_cov$thinned.theta.1.vec[1, ])
 theta.2 = mean(res_cov$thinned.theta.2.vec[1, ])

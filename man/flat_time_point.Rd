@@ -2,26 +2,26 @@
 % Please edit documentation in R/flat_time_point.R
 \name{flat_time_point}
 \alias{flat_time_point}
-\title{Function that calculates the flat time point of a Richard curve given the parameters}
+\title{Function that calculates the flat time point of a Richards curve given the parameters}
 \usage{
 flat_time_point(theta.1, theta.2, theta.3, xi, gamma = 0.99)
 }
 \arguments{
-\item{theta.1}{- parameter theta1 of Richard curve.}
+\item{theta.1}{- parameter theta1 of Richards curve.}
 
-\item{theta.2}{- parameter theta2 of Richard curve.}
+\item{theta.2}{- parameter theta2 of Richards curve.}
 
-\item{theta.3}{- parameter theta3 of Richard curve.}
+\item{theta.3}{- parameter theta3 of Richards curve.}
 
-\item{xi}{- parameter xi of Richard curve.}
+\item{xi}{- parameter xi of Richards curve.}
 
 \item{gamma}{- a progression constant between 0 and 1 which determines when it can be called flat time point.}
 }
 \value{
-The flat time point of a Richard curve given the parameters.
+The flat time point of a Richards curve given the parameters.
 }
 \description{
-Function that calculates the flat time point of a Richard curve given the parameters
+Function that calculates the flat time point of a Richards curve given the parameters
 }
 \examples{
 data("time_series_data")

@@ -2,7 +2,7 @@
 % Please edit documentation in R/BHRM.R
 \name{BHRM}
 \alias{BHRM}
-\title{Function that implement Bayesian Hierarchical Richard model without covariates}
+\title{Function that implement Bayesian Hierarchical Richards model without covariates}
 \usage{
 BHRM(
   Y,
@@ -58,7 +58,7 @@ A list of
        \item{rho.sq}{ - rho.sq}
 }
 \description{
-Function that implement Bayesian Hierarchical Richard model without covariates
+Function that implement Bayesian Hierarchical Richards model without covariates
 }
 \examples{
 data("time_series_data")

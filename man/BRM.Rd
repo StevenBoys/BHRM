@@ -2,7 +2,7 @@
 % Please edit documentation in R/BRM.R
 \name{BRM}
 \alias{BRM}
-\title{Function that implement Bayesian Richard model without covariates for individual subjects (Note: because BRM is not hierarhical model, it is recommended to use the diffuse prior for the error vaiance => varrho = 0.1)}
+\title{Function that implement Bayesian Richards model without covariates for individual subjects (Note: because BRM is not hierarhical model, it is recommended to use the diffuse prior for the error vaiance => varrho = 0.1)}
 \usage{
 BRM(
   Y,
@@ -58,7 +58,7 @@ A list of
        \item{rho.sq}{ - rho.sq}
 }
 \description{
-Function that implement Bayesian Richard model without covariates for individual subjects (Note: because BRM is not hierarhical model, it is recommended to use the diffuse prior for the error vaiance => varrho = 0.1)
+Function that implement Bayesian Richards model without covariates for individual subjects (Note: because BRM is not hierarhical model, it is recommended to use the diffuse prior for the error vaiance => varrho = 0.1)
 }
 \examples{
 data("time_series_data")

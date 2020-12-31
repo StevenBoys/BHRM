@@ -1,12 +1,12 @@
-#' Function that calculates the flat time point of a Richard curve given the parameters
+#' Function that calculates the flat time point of a Richards curve given the parameters
 #'
-#' @param theta.1 - parameter theta1 of Richard curve.
-#' @param theta.2 - parameter theta2 of Richard curve.
-#' @param theta.3 - parameter theta3 of Richard curve.
-#' @param xi - parameter xi of Richard curve.
+#' @param theta.1 - parameter theta1 of Richards curve.
+#' @param theta.2 - parameter theta2 of Richards curve.
+#' @param theta.3 - parameter theta3 of Richards curve.
+#' @param xi - parameter xi of Richards curve.
 #' @param gamma - a progression constant between 0 and 1 which determines when it can be called flat time point.
 #'
-#' @return The flat time point of a Richard curve given the parameters.
+#' @return The flat time point of a Richards curve given the parameters.
 #' @export
 #'
 #' @examples

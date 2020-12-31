@@ -1,12 +1,12 @@
-#' Function that evaluate the Richard function
+#' Function that evaluate the Richards function
 #'
-#' @param t - the time point to evaluate on the Richard curve
+#' @param t - the time point to evaluate on the Richards curve
 #' @param theta.1 - K : final epidemic size : real number
 #' @param theta.2 - r : intrinsic growth rate : real number
 #' @param theta.3 - tau - disease turning point : real number
 #' @param xi: shape parameter (measuring deviation from symmetric, xi = 1 => SYMMETRIC)
 #'
-#' @return The evaluation of Richard function at time point t given the parameters.
+#' @return The evaluation of Richards function at time point t given the parameters.
 #' @export
 #'
 #' @examples

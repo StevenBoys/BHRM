@@ -2,7 +2,7 @@
 % Please edit documentation in R/BHRM_cov.R
 \name{BHRM_cov}
 \alias{BHRM_cov}
-\title{Function that implement Bayesian Hierarchical Richard model with covariates}
+\title{Function that implement Bayesian Hierarchical Richards model with covariates}
 \usage{
 BHRM_cov(
   Y,
@@ -67,7 +67,7 @@ A list of
        \item{rho.sq}{ - rho.sq}
 }
 \description{
-Function that implement Bayesian Hierarchical Richard model with covariates
+Function that implement Bayesian Hierarchical Richards model with covariates
 }
 \examples{
 data("design_matrix")

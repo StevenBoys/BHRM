@@ -88,7 +88,7 @@ BHRM_cov_temp = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varr
       xi.vec[i,1] = 0.1
 
       f = function(t, theta.1,theta.2, theta.3, xi){
-        # (Original) Richard model
+        # (Original) Richards model
         # theta.1: K : final epidemic size : real number
         # theta.2: r : intrinsic growth rate : real number
         # theta.3: tau : disease turning point : real number
@@ -102,7 +102,7 @@ BHRM_cov_temp = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varr
         nomi = log(f(t = theta.3.vec[i,1] + eps, theta.1 = theta.1.vec[i,1], theta.2 = x, theta.3 = theta.3.vec[i,1], xi = xi.vec[i,1])/
                      f(t = theta.3.vec[i,1], theta.1 = theta.1.vec[i,1], theta.2 = x, theta.3 = theta.3.vec[i,1], xi = xi.vec[i,1]))
         denom = eps
-        # nomi/denom corresponds to the derivative of the logarithm of the Richard curve
+        # nomi/denom corresponds to the derivative of the logarithm of the Richards curve
         res = x/2 - nomi/denom
         return(res)
       }
@@ -160,9 +160,9 @@ BHRM_cov_temp = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varr
       # Identity matrix
       I.N = diag(one.vec.N)
 
-      # Richard model
+      # Richards model
       f = function(t, theta.1,theta.2, theta.3, xi){
-        # (Original) Richard model
+        # (Original) Richards model
         # theta.1: K : final epidemic size : real number
         # theta.2: r : intrinsic growth rate : real number
         # theta.3: tau : disease turning point : real number
@@ -171,7 +171,7 @@ BHRM_cov_temp = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varr
         return(res)
       }
 
-      # T_i-dimensional vector for Richard model
+      # T_i-dimensional vector for Richards model
       f.i.vec = function(i,theta.1.i,theta.2.i,theta.3.i, xi.i){
         res = matrix(data = f(t.values[[i]], theta.1 = theta.1.i, theta.2 = theta.2.i, theta.3 = theta.3.i, xi = xi.i), ncol = 1)
         return(res)
@@ -728,7 +728,7 @@ BHRM_cov_temp = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varr
   }
 }
 
-#' Function that implement Bayesian Hierarchical Richard model with covariates
+#' Function that implement Bayesian Hierarchical Richards model with covariates
 #'
 #' @param Y - N-by-T time sereis data for N countries for T days
 #' @param t.values - N list for time perids for N countries

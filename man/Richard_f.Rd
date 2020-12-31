@@ -2,12 +2,12 @@
 % Please edit documentation in R/extrapolate.R
 \name{Richard_f}
 \alias{Richard_f}
-\title{Function that evaluate the Richard function}
+\title{Function that evaluate the Richards function}
 \usage{
 Richard_f(t, theta.1, theta.2, theta.3, xi)
 }
 \arguments{
-\item{t}{- the time point to evaluate on the Richard curve}
+\item{t}{- the time point to evaluate on the Richards curve}
 
 \item{theta.1}{- K : final epidemic size : real number}
 
@@ -18,10 +18,10 @@ Richard_f(t, theta.1, theta.2, theta.3, xi)
 \item{xi:}{shape parameter (measuring deviation from symmetric, xi = 1 => SYMMETRIC)}
 }
 \value{
-The evaluation of Richard function at time point t given the parameters.
+The evaluation of Richards function at time point t given the parameters.
 }
 \description{
-Function that evaluate the Richard function
+Function that evaluate the Richards function
 }
 \examples{
 t = 1
