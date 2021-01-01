@@ -32,5 +32,5 @@ Y = Y[, c(1:(ncol(Y) - num_days))]
 res_cov = BHRM_cov(Y = Y, X = X, t.values = t.values, seed.no = seed.no, burn = burn,
 nmc = nmc, thin = thin, varrho = varrho, pro.var.theta.2 = pro.var.theta.2,
 pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)
-var_selection = var_sele(beta.vec = res_cov$thinned.theta.1.vec, names = names(X))
+var_selection = var_sele(beta.vec = res_cov$thinned.beta.3.vec, names = names(X))
 }

@@ -20,7 +20,7 @@ The sources of the datasets are:
 
 ## Installation
 
-```{r}
+```r
 require(devtools)
 devtools::install_github("StevenBoys/BHRM")
 library(BHRM)
@@ -37,7 +37,7 @@ We take the `time_series_data` and `design_matrix` in this package as an example
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/infect_COVID-19.png?raw=true)
 
 Firstly, we load the data.
-```{r}
+```r
 library(BHRM)
 # load the data
 data("design_matrix")
@@ -46,7 +46,7 @@ Y = time_series_data[, -c(1:2)]; X = design_matrix[, -c(1:2)]
 ```
 
 Then, we choose the [`BHRM_cov`](https://github.com/StevenBoys/BHRM/blob/main/R/BHRM_cov.R) which refers to Bayesian hierarchical Richards model with covariates to analyse the data.
-```{r}
+```r
 # set the hyperparameters
 seed.no = 1 ; burn = 20000 ; nmc = 20000 ; thin = 30; varrho = 0
 pro.var.theta.2 = 0.0002 ; pro.var.theta.3 = 0.05; mu = 0 ; rho.sq = 1
@@ -62,13 +62,13 @@ res_cov = BHRM_cov(Y = Y, X = X, t.values = t.values, seed.no = seed.no, burn = 
 ```
 
 We can use [`var_sele`](https://github.com/StevenBoys/BHRM/blob/main/R/var_sele.R) function to check the variable selection results.
-```{r}
-# check the important factors for theta1
-var_selection = var_sele(beta.vec = res_cov$thinned.theta.1.vec)
+```r
+# check the important factors for beta3
+var_selection = var_sele(beta.vec = res_cov$thinned.beta.3.vec)
 
 # check the names of the top covariates selected
 var_selection$id_sele
-# [1] 10 30  7 15 19 23 28 27  2 24
+# [1]  2 18 19  5  7  1 15  9 12 11
 
 # plot the figure for 95% credible interval of each covariates
 var_selection$figure
@@ -77,7 +77,7 @@ var_selection$figure
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
 
 We can also use [`extrapolate`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) to make extrapolations and use [`plot_RM`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) to make a plot and compare the real trajectory and extrapolated values.
-```{r}
+```r
 # make extrapolations
 extra_list = extrapolate(res_cov, Y, 1)
 # make a plot to see the performance of the extrapolations
@@ -87,7 +87,7 @@ plot_RM(extra_list$mean, Y[1, ])
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/prediction.png?raw=true)
 
 We can also compute the flat point of the estimated Richards curve using function [`flat_time_point`](https://github.com/StevenBoys/BHRM/blob/main/R/flat_time_point.R).
-```{r}
+```r
 theta.1 = mean(res_cov$thinned.theta.1.vec[1, ])
 theta.2 = mean(res_cov$thinned.theta.2.vec[1, ])
 theta.3 = mean(res_cov$thinned.theta.3.vec[1, ])
