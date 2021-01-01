@@ -45,7 +45,7 @@ data("time_series_data")
 Y = time_series_data[, -c(1:2)]; X = design_matrix[, -c(1:2)]
 ```
 
-Then, we choose the Bayesian hierarchical Richards model with covariates to analyse the data.
+Then, we choose the [`BHRM_cov`](https://github.com/StevenBoys/BHRM/blob/main/R/BHRM_cov.R) which refers to Bayesian hierarchical Richards model with covariates to analyse the data.
 ```
 # set the hyperparameters
 seed.no = 1 ; burn = 20000 ; nmc = 20000 ; thin = 30; varrho = 0
@@ -61,7 +61,7 @@ res_cov = BHRM_cov(Y = Y, X = X, t.values = t.values, seed.no = seed.no, burn = 
                    pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)  
 ```
 
-We can use `var_sele` function to check the variable selection results.
+We can use [`var_sele`](https://github.com/StevenBoys/BHRM/blob/main/R/var_sele.R) function to check the variable selection results.
 ```
 # check the important factors for theta1
 var_selection = var_sele(beta.vec = res_cov$thinned.theta.1.vec)
@@ -76,7 +76,7 @@ var_selection$figure
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
 
-We can also use `extrapolate` to make extrapolations and use `plot_RM` to make a plot and compare the real trajectory and extrapolated values.
+We can also use [`extrapolate`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) to make extrapolations and use [`plot_RM`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) to make a plot and compare the real trajectory and extrapolated values.
 ```
 # make extrapolations
 extra_list = extrapolate(res_cov, Y, 1)
@@ -86,7 +86,7 @@ plot_RM(extra_list$mean, Y[1, ])
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/prediction.png?raw=true)
 
-We can also compute the flat point of the estimated Richards curve using function `flat_time_point`.
+We can also compute the flat point of the estimated Richards curve using function [`flat_time_point`](https://github.com/StevenBoys/BHRM/blob/main/R/flat_time_point.R).
 ```
 theta.1 = mean(res_cov$thinned.theta.1.vec[1, ])
 theta.2 = mean(res_cov$thinned.theta.2.vec[1, ])
