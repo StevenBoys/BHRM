@@ -1,6 +1,7 @@
 # BHRM: An R package implementing Bayesian Hierarchical Richards Model to Estimate Infection Trajectories and Identify Risk Factors for the COVID-19 Outbreak
 
-![Figure 1: Extrapolated infectory for grand average over 40 countries](https://github.com/StevenBoys/BHRM/blob/main/Image/Global_average2.png)
+***Figure 1: Extrapolated infectory for grand average over 40 countries.***
+![](https://github.com/StevenBoys/BHRM/blob/main/Image/Global_average2.png)
 
 ## Contents
 * [Overview](#overview)
