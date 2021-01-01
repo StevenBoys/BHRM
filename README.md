@@ -20,7 +20,7 @@ The sources of the datasets are:
 
 ## Installation
 
-```
+```{r}
 require(devtools)
 devtools::install_github("StevenBoys/BHRM")
 library(BHRM)
@@ -29,7 +29,7 @@ library(BHRM)
 ## BHRM
 Richards growth curve has been widely used to describe epidemiology for real-time prediction of outbreak of diseases. We propose a Bayesian hierarchical model based on the Richards curve (BHRM) to accommodate the global COVID-19 data. We aim to uncover a hidden pattern from the infection trajectory for each country and then extrapolate the curve. At the same time, we want to identify important predictors that largely affect on the shape the curve. The details of the hierarchy of the model is shown in the figure below.
 
-<div align=center><img src="https://github.com/StevenBoys/BHRM/blob/main/Image/BHRM_formula.png?raw=true" width="700" height="500" alt=" "/></div>
+<div align=center><img src="https://github.com/StevenBoys/BHRM/blob/main/Image/BHRM_formula.png?raw=true" alt=" "/></div>
 
 ## Examples
 We take the `time_series_data` and `design_matrix` in this package as an example. `time_series_data` include infection growth curve for 30 global countries and `design_matrix` include 20 potential predictors.
@@ -37,7 +37,7 @@ We take the `time_series_data` and `design_matrix` in this package as an example
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/infect_COVID-19.png?raw=true)
 
 Firstly, we load the data.
-```
+```{r}
 library(BHRM)
 # load the data
 data("design_matrix")
@@ -46,7 +46,7 @@ Y = time_series_data[, -c(1:2)]; X = design_matrix[, -c(1:2)]
 ```
 
 Then, we choose the [`BHRM_cov`](https://github.com/StevenBoys/BHRM/blob/main/R/BHRM_cov.R) which refers to Bayesian hierarchical Richards model with covariates to analyse the data.
-```
+```{r}
 # set the hyperparameters
 seed.no = 1 ; burn = 20000 ; nmc = 20000 ; thin = 30; varrho = 0
 pro.var.theta.2 = 0.0002 ; pro.var.theta.3 = 0.05; mu = 0 ; rho.sq = 1
@@ -62,7 +62,7 @@ res_cov = BHRM_cov(Y = Y, X = X, t.values = t.values, seed.no = seed.no, burn = 
 ```
 
 We can use [`var_sele`](https://github.com/StevenBoys/BHRM/blob/main/R/var_sele.R) function to check the variable selection results.
-```
+```{r}
 # check the important factors for theta1
 var_selection = var_sele(beta.vec = res_cov$thinned.theta.1.vec)
 
@@ -77,7 +77,7 @@ var_selection$figure
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
 
 We can also use [`extrapolate`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) to make extrapolations and use [`plot_RM`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) to make a plot and compare the real trajectory and extrapolated values.
-```
+```{r}
 # make extrapolations
 extra_list = extrapolate(res_cov, Y, 1)
 # make a plot to see the performance of the extrapolations
@@ -87,7 +87,7 @@ plot_RM(extra_list$mean, Y[1, ])
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/prediction.png?raw=true)
 
 We can also compute the flat point of the estimated Richards curve using function [`flat_time_point`](https://github.com/StevenBoys/BHRM/blob/main/R/flat_time_point.R).
-```
+```{r}
 theta.1 = mean(res_cov$thinned.theta.1.vec[1, ])
 theta.2 = mean(res_cov$thinned.theta.2.vec[1, ])
 theta.3 = mean(res_cov$thinned.theta.3.vec[1, ])
