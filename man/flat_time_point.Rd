@@ -4,21 +4,42 @@
 \alias{flat_time_point}
 \title{Function that calculates the flat time point of a Richards curve given the parameters}
 \usage{
-flat_time_point(theta.1, theta.2, theta.3, xi, gamma = 0.99)
+flat_time_point(
+  model,
+  Y,
+  i,
+  gamma = c(0.9999, 0.999, 0.99),
+  y_name = NULL,
+  title = NULL,
+  size_axis_text = 20,
+  size_axis_title = 25,
+  size_plot_title = 35
+)
 }
 \arguments{
-\item{theta.1}{- parameter theta1 of Richards curve.}
+\item{model}{- a list which is the output of function BHRM_cov, BHRM, or BRM}
 
-\item{theta.2}{- parameter theta2 of Richards curve.}
+\item{Y}{- N-by-T time sereis training data for N countries for T days which are used to get the model}
 
-\item{theta.3}{- parameter theta3 of Richards curve.}
-
-\item{xi}{- parameter xi of Richards curve.}
+\item{i}{- index that indicates which subject will be extrapolated}
 
 \item{gamma}{- a progression constant between 0 and 1 which determines when it can be called flat time point.}
+
+\item{y_name}{- the name of the y axis. If it's not specified, the name for the y axis will be "Values".}
+
+\item{title}{- the title of the plot. If it's not specified, the plot won't include title.}
+
+\item{size_axis_text}{- the text size of y and x axis and the default value is 20}
+
+\item{size_axis_title}{- the text size of y and x title and the default value is 25}
+
+\item{size_plot_title}{- the text size of plot title and the default value is 35}
 }
 \value{
-The flat time point of a Richards curve given the parameters.
+A list of
+       \item{figure}{ - figure that shows the flat time points in the trajectory}
+       \item{flat_time_points}{ - a vector that stores the flat time points}
+       \item{epi_size}{ - the estimated final epidemic size}
 }
 \description{
 Function that calculates the flat time point of a Richards curve given the parameters
@@ -30,12 +51,8 @@ seed.no = 1 ; burn = 20000 ; nmc = 20000 ; thin = 30; varrho = 0
 pro.var.theta.2 = 0.0002 ; pro.var.theta.3 = 0.05; mu = 0 ; rho.sq = 1
 num_days = 14; t.values = c(1:(ncol(Y) - num_days))
 Y = Y[, c(1:(ncol(Y) - num_days))]
-res = BRM(Y = Y[1, ], t.values = t.values, seed.no = seed.no, burn = burn,
+res = BHRM(Y = Y[1, ], t.values = t.values, seed.no = seed.no, burn = burn,
 nmc = nmc, thin = thin, varrho = varrho, pro.var.theta.2 = pro.var.theta.2,
 pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)
-theta.1 = mean(res$thinned.theta.1.vec)
-theta.2 = mean(res$thinned.theta.2.vec)
-theta.3 = mean(res$thinned.theta.3.vec)
-xi = mean(res$thinned.xi.vec)
-flat_time_point(theta.1,theta.2,theta.3,xi)
+out = flat_time_point(res, Y, 1)
 }

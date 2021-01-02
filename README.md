@@ -1,7 +1,7 @@
 # BHRM: An R package implementing Bayesian Hierarchical Richards Model to Estimate Infection Trajectories and Identify Risk Factors for the COVID-19 Outbreak
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/Global_average2.png)
-<center>***Figure 1: Extrapolated infectory for grand average over 40 countries.***</center>
+***Figure 1: Extrapolated infectory for grand average over 40 countries.***
 
 ## Contents
 * [Overview](#overview)
@@ -32,13 +32,13 @@ Richards growth curve has been widely used to describe epidemiology for real-tim
 
 <div align=center><img src="https://github.com/StevenBoys/BHRM/blob/main/Image/BHRM_formula.png?raw=true" alt=" "/></div>
 
-<center>***Figure 2: A hierarhcy of the Bayesian Hierarchical Richards Model.***</center>
+***Figure 2: A hierarhcy of the Bayesian Hierarchical Richards Model.***
 
 ## Examples
 We take the `time_series_data` and `design_matrix` in this package as an example. `time_series_data` include infection growth curve for 30 global countries and `design_matrix` include 20 potential predictors.
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/infect_COVID-19.png?raw=true)
-<center>***Figure 3: Infection trajectories for eight countries updated on May 14th (Data source: JHU CSSE).***</center>
+***Figure 3: Infection trajectories for eight countries updated on May 14th (Data source: JHU CSSE).***
 
 Firstly, we load the data.
 ```r
@@ -79,7 +79,7 @@ var_selection$figure
 ```
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
-<center>***Figure 4: 95% confidence interval for the 20 potential factors for beta3.***</center>
+***Figure 4: 95% confidence interval for the 20 potential factors for beta3.***
 
 We can also use [`extrapolate`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) to make extrapolations and use [`plot_RM`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) to make a plot and compare the real trajectory and extrapolated values.
 ```r
@@ -90,16 +90,23 @@ plot_RM(extra_list$mean, Y[1, ])
 ```
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/prediction.png?raw=true)
-<center>***Figure 5: Comparison between the real trajectory and extrapolated values.***</center>
+***Figure 5: Comparison between the real trajectory and extrapolated values.***
 
-We can also compute the flat point of the estimated Richards curve using function [`flat_time_point`](https://github.com/StevenBoys/BHRM/blob/main/R/flat_time_point.R).
+We can also compute the flat point of the estimated Richards curve using function [`flat_time_point`](https://github.com/StevenBoys/BHRM/blob/main/R/flat_time_point.R). We can see the following plot where the vertical blue lines refer to the flat time points.
 ```r
-theta.1 = mean(res_cov$thinned.theta.1.vec[1, ])
-theta.2 = mean(res_cov$thinned.theta.2.vec[1, ])
-theta.3 = mean(res_cov$thinned.theta.3.vec[1, ])
-xi = mean(res_cov$thinned.xi.vec[1, ])
-flat_time_point(theta.1,theta.2,theta.3,xi)
-# 156.0234
+out = flat_time_point(res_cov, Y, 1)
+out$figure
+```
+
+![](https://github.com/StevenBoys/BHRM/blob/main/Image/flat_time_points.png?raw=true)
+***Figure 6: Plot that shows flat time points in the trajectory.***
+
+We can also get the flat time points and epidemic size.
+```r
+out$flat_time_points
+# [1] 230.7168 193.4035 156.0240
+out$epi_size
+# [1] 1443541
 ```
 
 ## References
