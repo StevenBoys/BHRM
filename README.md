@@ -1,7 +1,7 @@
 # BHRM: An R package implementing Bayesian Hierarchical Richards Model to Estimate Infection Trajectories and Identify Risk Factors for the COVID-19 Outbreak
 
-***Figure 1: Extrapolated infectory for grand average over 40 countries.***
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/Global_average2.png)
+***Figure 1: Extrapolated infectory for grand average over 40 countries.***
 
 ## Contents
 * [Overview](#overview)
@@ -31,11 +31,13 @@ library(BHRM)
 Richards growth curve has been widely used to describe epidemiology for real-time prediction of outbreak of diseases. We propose a Bayesian hierarchical model based on the Richards curve (BHRM) to accommodate the global COVID-19 data. We aim to uncover a hidden pattern from the infection trajectory for each country and then extrapolate the curve. At the same time, we want to identify important predictors that largely affect on the shape the curve. The details of the hierarchy of the model is shown in the figure below.
 
 <div align=center><img src="https://github.com/StevenBoys/BHRM/blob/main/Image/BHRM_formula.png?raw=true" alt=" "/></div>
+***Figure 2: A hierarhcy of the Bayesian Hierarchical Richards Model.***
 
 ## Examples
 We take the `time_series_data` and `design_matrix` in this package as an example. `time_series_data` include infection growth curve for 30 global countries and `design_matrix` include 20 potential predictors.
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/infect_COVID-19.png?raw=true)
+***Figure 3: Infection trajectories for eight countries updated on May 14th (Data source: JHU CSSE).***
 
 Firstly, we load the data.
 ```r
@@ -76,6 +78,7 @@ var_selection$figure
 ```
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
+***Figure 4: 95% confidence interval for the 20 potential factors for beta3.***
 
 We can also use [`extrapolate`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) to make extrapolations and use [`plot_RM`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) to make a plot and compare the real trajectory and extrapolated values.
 ```r
@@ -86,6 +89,7 @@ plot_RM(extra_list$mean, Y[1, ])
 ```
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/prediction.png?raw=true)
+***Figure 5: Comparison between the real trajectory and extrapolated values.***
 
 We can also compute the flat point of the estimated Richards curve using function [`flat_time_point`](https://github.com/StevenBoys/BHRM/blob/main/R/flat_time_point.R).
 ```r
