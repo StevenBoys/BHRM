@@ -28,7 +28,9 @@ library(BHRM)
 ```
 
 ## BHRM
-Bayesian hierarchical Richards model (BHRM) is a fully Bayesian version of non-linear mixed effect model where (i) on the first stage infection trajectories from N countries are described by the Richards growth curve, and (ii) on the second stage the sparse horseshoe prior indentifies important predictors that largely affect on the shape the curve. Richards growth curve has been widely used to describe epidemiology for real-time prediction of outbreak of diseases. The details of the hierarchy of the model is shown in the figure below.
+Bayesian hierarchical Richards model (BHRM) is a fully Bayesian version of non-linear mixed effect model where (i) on the first stage infection trajectories from N subjects (subjects can be states in a country, countries, etc) are described by the Richards growth curve, and (ii) on the second stage the sparse horseshoe prior indentifies important predictors that largely affect on the shape the curve. Richards growth curve has been widely used to describe epidemiology for real-time prediction of outbreak of diseases. Refer to our paper **["Estimation of COVID-19 spread curves integrating global data and borrowing information", PLOS ONE, (2020)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0236860)** for a detailed explanation of the BHRM.
+
+A hierarchy of the BHRM is shown in the figure below.
 
 <div align=center><img src="https://github.com/StevenBoys/BHRM/blob/main/Image/BHRM_formula.png?raw=true" alt=" "/></div>
 
