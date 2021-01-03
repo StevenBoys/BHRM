@@ -36,7 +36,7 @@ Bayesian hierarchical Richards model (BHRM) is a fully Bayesian version of non-l
 
 ## Examples
 
-R package `BHRM` contains COVID-19 dataset (i) `time_series_data` and (ii) `design_matrix` that can be trained to the BHRM. `time_series_data` includes infection growth curve for 30 global countries and `design_matrix` includes 20 predictors.
+R package `BHRM` contains COVID-19 dataset comprises (i) `time_series_data` and (ii) `design_matrix` to train the BHRM. `time_series_data` includes infection growth curve for 30 global countries and `design_matrix` includes 20 predictors.
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/infect_COVID-19.png?raw=true)
 ***Figure 3: Infection trajectories for eight countries updated on May 14th (Data source: JHU CSSE).***
@@ -49,7 +49,7 @@ data("design_matrix")
 data("time_series_data")
 Y = time_series_data[, -c(1:2)]; X = design_matrix[, -c(1:2)]
 ```
-To train BHRM, use the R function [`BHRM_cov`](https://github.com/StevenBoys/BHRM/blob/main/R/BHRM_cov.R) as following way. The [`BHRM_cov`](https://github.com/StevenBoys/BHRM/blob/main/R/BHRM_cov.R) implements a Gibbs sampling algorithm to sample from the posterior distribution for the BHRM given the dataset.
+To train BHRM with the aforementioned dataset, use the R function [`BHRM_cov`](https://github.com/StevenBoys/BHRM/blob/main/R/BHRM_cov.R) as following way. The [`BHRM_cov`](https://github.com/StevenBoys/BHRM/blob/main/R/BHRM_cov.R) implements a Gibbs sampling algorithm to sample from the posterior distribution for the BHRM given the dataset.
 ```r
 # set the hyperparameters
 seed.no = 1 ; burn = 20000 ; nmc = 20000 ; thin = 30; varrho = 0
@@ -65,7 +65,7 @@ res_cov = BHRM_cov(Y = Y, X = X, t.values = t.values, seed.no = seed.no, burn = 
                    pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)  
 ```
 
-We can also use [`extrapolate`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) to make extrapolations and use [`plot_RM`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) to visualize the comparison between the real trajectory and extrapolated values.
+To visualize the training results, use R functions [`extrapolate`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) and [`plot_RM`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) as follows
 ```r
 # make extrapolations
 extra_list = extrapolate(res_cov, Y, 1)
@@ -76,7 +76,7 @@ plot_RM(extra_list$mean, Y[1, ])
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/prediction.png?raw=true)
 ***Figure 4: Comparison between the real trajectory and extrapolated values.***
 
-We can also compute flat points of the estimated Richards curve using function [`flat_time_point`](https://github.com/StevenBoys/BHRM/blob/main/R/flat_time_point.R). As showed in the Figure 6, the vertical blue lines refer to the three flat time points and the horizontal blue line corresponds to the final epidemic size.
+We can also compute flat points of the estimated Richards curve by using R function [`flat_time_point`](https://github.com/StevenBoys/BHRM/blob/main/R/flat_time_point.R). As shown in the Figure 6, the vertical blue lines refer to the three flat time points, while the horizontal blue line corresponds to the final epidemic size.
 ```r
 out = flat_time_point(res_cov, Y, 1)
 out$figure
@@ -85,7 +85,7 @@ out$figure
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/flat_time_points.png?raw=true)
 ***Figure 5: Plot that shows flat time points in the trajectory.***
 
-We can also get the values of flat time points and epidemic size.
+To obtain the values of flat time points and epidemic size, use 
 ```r
 out$flat_time_points
 # [1] 230.7168 193.4035 156.0240
@@ -93,7 +93,7 @@ out$epi_size
 # [1] 1443541
 ```
 
-We can use [`var_sele`](https://github.com/StevenBoys/BHRM/blob/main/R/var_sele.R) function to check the variable selection results.
+We can use R function [`var_sele`](https://github.com/StevenBoys/BHRM/blob/main/R/var_sele.R) to visualize the result of variable selection implemented via sparse horseshoe prior.
 ```r
 # check the important factors for beta3
 var_selection = var_sele(beta.vec = res_cov$thinned.beta.3.vec)
