@@ -49,7 +49,7 @@ data("time_series_data")
 Y = time_series_data[, -c(1:2)]; X = design_matrix[, -c(1:2)]
 ```
 
-Then, we choose the [`BHRM_cov`](https://github.com/StevenBoys/BHRM/blob/main/R/BHRM_cov.R) which refers to Bayesian hierarchical Richards model with covariates to analyse the data.
+Then, we choose [`BHRM_cov`](https://github.com/StevenBoys/BHRM/blob/main/R/BHRM_cov.R) function which refers to Bayesian hierarchical Richards model with covariates to analyse the data.
 ```r
 # set the hyperparameters
 seed.no = 1 ; burn = 20000 ; nmc = 20000 ; thin = 30; varrho = 0
@@ -79,9 +79,9 @@ var_selection$figure
 ```
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
-***Figure 4: 95% confidence interval for the 20 potential factors for beta3.***
+***Figure 4: 95% confidence intervals of the 20 potential factors for beta3.***
 
-We can also use [`extrapolate`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) to make extrapolations and use [`plot_RM`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) to make a plot and compare the real trajectory and extrapolated values.
+We can also use [`extrapolate`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) to make extrapolations and use [`plot_RM`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) to visualize the comparison between the real trajectory and extrapolated values.
 ```r
 # make extrapolations
 extra_list = extrapolate(res_cov, Y, 1)
@@ -92,7 +92,7 @@ plot_RM(extra_list$mean, Y[1, ])
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/prediction.png?raw=true)
 ***Figure 5: Comparison between the real trajectory and extrapolated values.***
 
-We can also compute the flat point of the estimated Richards curve using function [`flat_time_point`](https://github.com/StevenBoys/BHRM/blob/main/R/flat_time_point.R). We can see the following plot where the vertical blue lines refer to the flat time points.
+We can also compute flat points of the estimated Richards curve using function [`flat_time_point`](https://github.com/StevenBoys/BHRM/blob/main/R/flat_time_point.R). As showed in the Figure 6, the vertical blue lines refer to the three flat time points and the horizontal blue line corresponds to the final epidemic size.
 ```r
 out = flat_time_point(res_cov, Y, 1)
 out$figure
@@ -101,7 +101,7 @@ out$figure
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/flat_time_points.png?raw=true)
 ***Figure 6: Plot that shows flat time points in the trajectory.***
 
-We can also get the flat time points and epidemic size.
+We can also get the values of flat time points and epidemic size.
 ```r
 out$flat_time_points
 # [1] 230.7168 193.4035 156.0240
