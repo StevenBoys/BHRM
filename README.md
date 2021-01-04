@@ -28,19 +28,21 @@ library(BHRM)
 ```
 
 ## BHRM
-Richards growth curve has been widely used to describe epidemiology for real-time prediction of outbreak of diseases. We propose a Bayesian hierarchical model based on the Richards curve (BHRM) to accommodate the global COVID-19 data. We aim to uncover a hidden pattern from the infection trajectory for each country and then extrapolate the curve. At the same time, we want to identify important predictors that largely affect on the shape the curve. The details of the hierarchy of the model is shown in the figure below.
+Bayesian hierarchical Richards model (BHRM) is a fully Bayesian version of non-linear mixed effect model where (i) on the first stage infection trajectories from N subjects (subjects can be states in a country, countries, etc) are described by the Richards growth curve, and (ii) on the second stage the sparse horseshoe prior indentifies important predictors that largely affect on the shape the curve. Richards growth curve has been widely used to describe epidemiology for real-time prediction of outbreak of diseases. Refer to our paper **["Estimation of COVID-19 spread curves integrating global data and borrowing information", PLOS ONE, (2020)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0236860)** for a detailed explanation of the BHRM.
+
+A hierarchy of the BHRM is shown in the figure below.
 
 <div align=center><img src="https://github.com/StevenBoys/BHRM/blob/main/Image/BHRM_formula.png?raw=true" alt=" "/></div>
 
 ***Figure 2: A hierarhcy of the Bayesian Hierarchical Richards Model.***
 
 ## Examples
-We take the `time_series_data` and `design_matrix` in this package as an example. `time_series_data` include infection growth curve for 40 global countries and `design_matrix` include 45 potential predictors.
+R package `BHRM` contains COVID-19 dataset comprises (i) `time_series_data` and (ii) `design_matrix` to train the BHRM. `time_series_data` includes infection growth curve for 40 global countries and `design_matrix` includes 45 predictors.
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/infect_COVID-19.png?raw=true)
 ***Figure 3: Infection trajectories for eight countries updated on May 14th (Data source: JHU CSSE).***
 
-Firstly, we load the data.
+To load the COVID-19 dataset, use
 ```r
 library(BHRM)
 # load the data
@@ -48,8 +50,7 @@ data("design_matrix")
 data("time_series_data")
 Y = time_series_data[, -c(1:2)]; X = design_matrix[, -c(1:2)]
 ```
-
-Then, we choose [`BHRM_cov`](https://github.com/StevenBoys/BHRM/blob/main/R/BHRM_cov.R) function which refers to Bayesian hierarchical Richards model with covariates to analyse the data.
+To train BHRM with the aforementioned dataset, use the R function [`BHRM_cov`](https://github.com/StevenBoys/BHRM/blob/main/R/BHRM_cov.R) as following way. The [`BHRM_cov`](https://github.com/StevenBoys/BHRM/blob/main/R/BHRM_cov.R) implements a Gibbs sampling algorithm to sample from the posterior distribution for the BHRM given the dataset.
 ```r
 # set the hyperparameters
 seed.no = 1 ; burn = 20000 ; nmc = 20000 ; thin = 30; varrho = 0
@@ -65,23 +66,7 @@ res_cov = BHRM_cov(Y = Y, X = X, t.values = t.values, seed.no = seed.no, burn = 
                    pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)  
 ```
 
-We can use [`var_sele`](https://github.com/StevenBoys/BHRM/blob/main/R/var_sele.R) function to check the variable selection results.
-```r
-# check the important factors for beta3
-var_selection = var_sele(beta.vec = res_cov$thinned.beta.3.vec)
-
-# check the names of the top covariates selected
-var_selection$id_sele
-# [1] 30 40  2 26 18 33 38  7 19  9
-
-# plot the figure for 95% credible interval of each covariates
-var_selection$figure
-```
-
-![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
-***Figure 4: 95% confidence intervals of the 45 potential factors for beta3.***
-
-We can also use [`extrapolate`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) to make extrapolations and use [`plot_RM`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) to visualize the comparison between the real trajectory and extrapolated values.
+To visualize the training results, use R functions [`extrapolate`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) and [`plot_RM`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) as follows
 ```r
 # make extrapolations
 extra_list = extrapolate(res_cov, Y, 1)
@@ -90,18 +75,18 @@ plot_RM(extra_list$mean, Y[1, ])
 ```
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/extrapolation.png?raw=true)
-***Figure 5: Comparison between the real trajectory and extrapolated values.***
+***Figure 4: Comparison between the real trajectory and extrapolated values.***
 
-We can also compute flat points of the estimated Richards curve using function [`flat_time_point`](https://github.com/StevenBoys/BHRM/blob/main/R/flat_time_point.R). As showed in the Figure 6, the vertical blue lines refer to the three flat time points and the horizontal blue line corresponds to the final epidemic size.
+We can also compute flat points of the estimated Richards curve by using R function [`flat_time_point`](https://github.com/StevenBoys/BHRM/blob/main/R/flat_time_point.R). As shown in the Figure 6, the vertical blue lines refer to the three flat time points, while the horizontal blue line corresponds to the final epidemic size.
 ```r
 out = flat_time_point(res_cov, Y, 1)
 out$figure
 ```
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/flat_time_points.png?raw=true)
-***Figure 6: Plot that shows flat time points in the trajectory.***
+***Figure 5: Plot that shows flat time points in the trajectory.***
 
-We can also get the values of flat time points and epidemic size.
+To obtain the values of flat time points and epidemic size, use 
 ```r
 out$flat_time_points
 # [1] 230.5369 193.2635 155.9241
@@ -109,9 +94,28 @@ out$epi_size
 # [1] 1442180
 ```
 
+We can use R function [`var_sele`](https://github.com/StevenBoys/BHRM/blob/main/R/var_sele.R) to visualize the result of variable selection implemented via sparse horseshoe prior.
+```r
+# check the important factors for beta3
+var_selection = var_sele(beta.vec = res_cov$thinned.beta.3.vec)
+
+# check the names of the top covariates selected
+var_selection$id_sele
+# [1]  30 40  2 26 18 33 38  7 19  9
+
+# plot the figure for 95% credible interval of each covariates
+var_selection$figure
+```
+
+![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
+
+***Figure 6: 95% confidence intervals of the 20 potential factors for beta3.***
+
+
 ## References
 
 [1] [Se Yoon Lee, Bowen Lei, and Bani K. Mallick. (2020) “Estimation of COVID19 spread curves integrating global data and borrowing information,” PLOS ONE](https://journals.plos.org/plosone/article/authors?id=10.1371/journal.pone.0236860)
 
-[2] [Davidian, M., and Giltinan, D. M. (1995). Nonlinear models for repeated measurement data (Vol. 62). CRC press.](https://books.google.com/books?hl=en&lr=&id=0eSIBPAL4qsC&oi=fnd&pg=IA7&dq=nonlinear+mixed+effect+model+giltnan&ots=9frDPH3F4J&sig=L5Wz91waGu447OdyYHQ8Vp5ckQc#v=onepage&q=nonlinear%20mixed%20effect%20model%20giltnan&f=false)
+[2] Se Yoon Lee and Bani K. Mallick. (2020+) “Bayesian Hierarchical modeling: application towards production results in the Eagle Ford Shale of South Texas,” To appear in Sankhyā: The Indian Journal of Statistics, Series B, [Github](https://github.com/yain22/SWM)
 
+[3] [Davidian, M., and Giltinan, D. M. (1995). Nonlinear models for repeated measurement data (Vol. 62). CRC press.](https://books.google.com/books?hl=en&lr=&id=0eSIBPAL4qsC&oi=fnd&pg=IA7&dq=nonlinear+mixed+effect+model+giltnan&ots=9frDPH3F4J&sig=L5Wz91waGu447OdyYHQ8Vp5ckQc#v=onepage&q=nonlinear%20mixed%20effect%20model%20giltnan&f=false)
