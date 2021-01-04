@@ -37,7 +37,7 @@ A hierarchy of the BHRM is shown in the figure below.
 ***Figure 2: A hierarhcy of the Bayesian Hierarchical Richards Model.***
 
 ## Examples
-R package `BHRM` contains COVID-19 dataset comprises (i) `time_series_data` and (ii) `design_matrix` to train the BHRM. `time_series_data` includes infection growth curve for 40 global countries and `design_matrix` includes 45 predictors.
+R package `BHRM` contains COVID-19 dataset comprises (i) `time_series_data` and (ii) `design_matrix` to train the BHRM. `time_series_data` includes infection growth curve from January 22nd to May 14th for 40 global countries and `design_matrix` includes 45 predictors which cover health care resources, population statistics, disease prevalence, etc.
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/infect_COVID-19.png?raw=true)
 ***Figure 3: Infection trajectories for eight countries updated on May 14th (Data source: JHU CSSE).***
