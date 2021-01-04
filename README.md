@@ -35,7 +35,7 @@ Richards growth curve has been widely used to describe epidemiology for real-tim
 ***Figure 2: A hierarhcy of the Bayesian Hierarchical Richards Model.***
 
 ## Examples
-We take the `time_series_data` and `design_matrix` in this package as an example. `time_series_data` include infection growth curve for 30 global countries and `design_matrix` include 20 potential predictors.
+We take the `time_series_data` and `design_matrix` in this package as an example. `time_series_data` include infection growth curve for 40 global countries and `design_matrix` include 45 potential predictors.
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/infect_COVID-19.png?raw=true)
 ***Figure 3: Infection trajectories for eight countries updated on May 14th (Data source: JHU CSSE).***
@@ -72,14 +72,14 @@ var_selection = var_sele(beta.vec = res_cov$thinned.beta.3.vec)
 
 # check the names of the top covariates selected
 var_selection$id_sele
-# [1]  2 18 19  5  7  1 15  9 12 11
+# [1] 30 40  2 26 18 33 38  7 19  9
 
 # plot the figure for 95% credible interval of each covariates
 var_selection$figure
 ```
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
-***Figure 4: 95% confidence intervals of the 20 potential factors for beta3.***
+***Figure 4: 95% confidence intervals of the 45 potential factors for beta3.***
 
 We can also use [`extrapolate`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) to make extrapolations and use [`plot_RM`](https://github.com/StevenBoys/BHRM/blob/main/R/extrapolate.R) to visualize the comparison between the real trajectory and extrapolated values.
 ```r
@@ -89,7 +89,7 @@ extra_list = extrapolate(res_cov, Y, 1)
 plot_RM(extra_list$mean, Y[1, ])
 ```
 
-![](https://github.com/StevenBoys/BHRM/blob/main/Image/prediction.png?raw=true)
+![](https://github.com/StevenBoys/BHRM/blob/main/Image/extrapolation.png?raw=true)
 ***Figure 5: Comparison between the real trajectory and extrapolated values.***
 
 We can also compute flat points of the estimated Richards curve using function [`flat_time_point`](https://github.com/StevenBoys/BHRM/blob/main/R/flat_time_point.R). As showed in the Figure 6, the vertical blue lines refer to the three flat time points and the horizontal blue line corresponds to the final epidemic size.
@@ -104,9 +104,9 @@ out$figure
 We can also get the values of flat time points and epidemic size.
 ```r
 out$flat_time_points
-# [1] 230.7168 193.4035 156.0240
+# [1] 230.5369 193.2635 155.9241
 out$epi_size
-# [1] 1443541
+# [1] 1442180
 ```
 
 ## References

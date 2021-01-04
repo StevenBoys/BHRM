@@ -75,7 +75,7 @@ var_sele = function(beta.vec, max.rank = 10, names = NULL){
     scale_color_manual(values = c('1' = '#1E90FF', '-1' = '#FF4500', '0' = '#191970')) +
     theme(text = element_text(size=20),
           axis.ticks.y = element_blank()) +
-    ylim(y_lim)
+    ylim(rev(y_lim))
 
   id_sele = gene.rank[1:max.rank]
   if(!is.null(names)){
