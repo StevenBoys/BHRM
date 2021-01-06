@@ -33,6 +33,7 @@ Bayesian hierarchical Richards model (BHRM) is a fully Bayesian version of non-l
 A hierarchy of the BHRM is shown in the figure below.
 
 <div align=center><img src="https://github.com/StevenBoys/BHRM/blob/main/Image/BHRM_formula.png?raw=true" alt=" "/></div>
+<div align=center><img src="https://github.com/StevenBoys/BHRM/blob/main/Image/graphical_model.png?raw=true" alt=" "/></div>
 
 ***Figure 2: A hierarhcy of the Bayesian Hierarchical Richards Model.***
 
