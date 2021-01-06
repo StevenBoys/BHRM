@@ -95,9 +95,9 @@ out$figure
 To obtain the values of flat time points and epidemic size, use 
 ```r
 out$flat_time_points
-# [1] 230.5369 193.2635 155.9241
+# [1] 228.5129 191.7026 154.8270
 out$epi_size
-# [1] 1442180
+# [1] 1428479
 ```
 
 We can use R function [`var_sele`](https://github.com/StevenBoys/BHRM/blob/main/R/var_sele.R) to visualize the result of variable selection implemented via sparse horseshoe prior.
