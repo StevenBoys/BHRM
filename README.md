@@ -119,6 +119,7 @@ var_selection$figure
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
 
 ***Table 1: Significant covariates explaining the curve parameters of the Richards curve.***
+
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/Important_Predictors.png?raw=true)
 
 
