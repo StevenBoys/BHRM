@@ -57,7 +57,7 @@ Y = time_series_data[, -c(1:2)]; X = design_matrix[, -c(1:2)]
 To train BHRM with the aforementioned dataset, use the R function [`BHRM_cov`](https://github.com/StevenBoys/BHRM/blob/main/R/BHRM_cov.R) as following way. The [`BHRM_cov`](https://github.com/StevenBoys/BHRM/blob/main/R/BHRM_cov.R) implements a Gibbs sampling algorithm to sample from the posterior distribution for the BHRM given the dataset.
 ```r
 # set the hyperparameters
-seed.no = 1 ; burn = 20000 ; nmc = 20000 ; thin = 30; varrho = 0
+seed.no = 1 ; burn = 5000 ; nmc = 5000 ; thin = 30; varrho = 0
 pro.var.theta.2 = 0.0002 ; pro.var.theta.3 = 0.05; mu = 0 ; rho.sq = 1
 t.values = list(); num_days = 14
 for(i in 1:nrow(Y)){

@@ -5,4 +5,5 @@
 #' @import compiler
 #' @import scales
 #' @import ggthemes
+#' @import svMisc
 NULL

@@ -6,6 +6,7 @@ BHRM_cov_temp = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varr
     library(mvtnorm)
     library(truncdist)
     library(nleqslv)
+    library(svMisc)
   }
 
   # About Data
@@ -680,11 +681,14 @@ BHRM_cov_temp = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varr
       }
     }
 
-    remainder = s%%1000
+    quo = (burn + nmc)/100
+    remainder = (s+1)%%quo
+    quotient = (s+1) %/% quo
     if(remainder == 0){
-      print(paste("no of iterations is", s))
+      progress(quotient, progress.bar = TRUE)
+      Sys.sleep(0.01)
+      if(quotient == 100) cat("Done!\n")
       mc.index = seq(from = burn + 1, to = burn + nmc, by = thin)
-      print(paste("no of curves with negative slope is", sum(rowMeans(theta.2.vec[,mc.index]) < 0)))
     }
 
   }
