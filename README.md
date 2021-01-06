@@ -102,21 +102,31 @@ out$epi_size
 
 We can use R function [`var_sele`](https://github.com/StevenBoys/BHRM/blob/main/R/var_sele.R) to visualize the result of variable selection implemented via sparse horseshoe prior.
 ```r
+# check the important factors for beta1
+var_selection1 = var_sele(beta.vec = res_cov$thinned.beta.1.vec, j = 1)
+# check the important factors for beta2
+var_selection2 = var_sele(beta.vec = res_cov$thinned.beta.2.vec, j = 2)
 # check the important factors for beta3
-var_selection = var_sele(beta.vec = res_cov$thinned.beta.3.vec)
+var_selection3 = var_sele(beta.vec = res_cov$thinned.beta.3.vec, j = 3)
 
 # check the names of the top covariates selected
-var_selection$id_sele
-# [1]  30 40  2 26 18 33 38  7 19  9
+var_selection1$id_sele
+# [1] 40 41 32 19 37 27  5 30 18 12
+var_selection2$id_sele
+# [1] 13 20 40 36 33 37  1 21 31  7
+var_selection3$id_sele
+# [1] 40  2 26 33 44  7 41 30 18  5
 
 # plot the figure for 95% credible interval of each covariates
-var_selection$figure
+var_selection1$figure
+var_selection2$figure
+var_selection3$figure
 ```
 
-***Figure 5: 95% confidence intervals of the 20 potential factors for beta3.***
-![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
-![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
-![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
+***Figure 5: 95% confidence intervals of the 20 potential factors for beta1, beta2, and beta3.***
+![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele1.png?raw=true)
+![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele2.png?raw=true)
+![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele3.png?raw=true)
 
 ***Table 1: Significant covariates explaining the curve parameters of the Richards curve.***
 

@@ -1,7 +1,9 @@
 #' Function that do variable selection based on the mcmc samples of the coefficients
 #'
 #' @param beta.vec - p-by-S matrix for S mcmc samples of p potential factors
+#' @param j - An integer that indicates the beta being analysed
 #' @param max.rank - The number of top covariates selected based on the posterior mean
+#' @param names - A vector of characters that describe the names of the covariates
 #'
 #' @return A list of
 #'        \item{figure}{ - 95% credible interval of each covariates}
@@ -25,7 +27,7 @@
 #' nmc = nmc, thin = thin, varrho = varrho, pro.var.theta.2 = pro.var.theta.2,
 #' pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)
 #' var_selection = var_sele(beta.vec = res_cov$thinned.beta.3.vec, names = names(X))
-var_sele = function(beta.vec, max.rank = 10, names = NULL){
+var_sele = function(beta.vec, j, max.rank = 10, names = NULL){
   library("ggplot2")
   # Input should be posterior realizations of p dimensional vector of beta
   # Each column of the vector should be each iteration
@@ -70,12 +72,22 @@ var_sele = function(beta.vec, max.rank = 10, names = NULL){
     geom_pointrange() +
     #xlab("covariate index j") +
     xlab("") +
-    ylab(expression(paste("95% credible interval of ", beta[j]))) +
     geom_hline(yintercept=0, linetype = "dashed", color = "red")+
     scale_color_manual(values = c('1' = '#1E90FF', '-1' = '#FF4500', '0' = '#191970')) +
     theme(text = element_text(size=20),
           axis.ticks.y = element_blank()) +
     ylim(rev(y_lim))
+
+  if(j == 1){
+    figure = figure +
+      ylab(expression(paste("95% credible interval of ", beta[1])))
+  }else if(j == 2){
+    figure = figure +
+      ylab(expression(paste("95% credible interval of ", beta[2])))
+  }else if(j == 3){
+    figure = figure +
+      ylab(expression(paste("95% credible interval of ", beta[3])))
+  }
 
   id_sele = gene.rank[1:max.rank]
   if(!is.null(names)){

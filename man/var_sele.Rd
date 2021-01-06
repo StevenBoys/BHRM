@@ -4,12 +4,16 @@
 \alias{var_sele}
 \title{Function that do variable selection based on the mcmc samples of the coefficients}
 \usage{
-var_sele(beta.vec, max.rank = 10, names = NULL)
+var_sele(beta.vec, j, max.rank = 10, names = NULL)
 }
 \arguments{
 \item{beta.vec}{- p-by-S matrix for S mcmc samples of p potential factors}
 
+\item{j}{- An integer that indicates the beta being analysed}
+
 \item{max.rank}{- The number of top covariates selected based on the posterior mean}
+
+\item{names}{- A vector of characters that describe the names of the covariates}
 }
 \value{
 
