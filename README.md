@@ -1,13 +1,13 @@
 # BHRM: An R package implementing Bayesian Hierarchical Richards Model to Estimate Infection Trajectories and Identify Risk Factors for the COVID-19 Outbreak
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/Global_average2.png)
-***Figure 1: Extrapolated infectory for grand average over 40 countries.***
+
 
 ## Contents
 * [Overview](#overview)
 * [Installation](#installation)
 * [BHRM](#bhrm)
-* [Examples](#examples)
+* [Example](#example)
 * [References](#References)
 
 ## Overview
@@ -30,18 +30,21 @@ library(BHRM)
 ## BHRM
 Bayesian hierarchical Richards model (BHRM) is a fully Bayesian version of non-linear mixed effect model where (i) on the first stage infection trajectories from N subjects (subjects can be states in a country, countries, etc) are described by the Richards growth curve, and (ii) on the second stage the sparse horseshoe prior indentifies important predictors that largely affect on the shape the curve. Richards growth curve has been widely used to describe epidemiology for real-time prediction of outbreak of diseases. Refer to our paper **["Estimation of COVID-19 spread curves integrating global data and borrowing information", PLOS ONE, (2020)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0236860)** for a detailed explanation of the BHRM.
 
-A hierarchy of the BHRM is shown in the figure below.
+Figure 1 shows (i) a hierarchy of the BHRM (top panel) and (ii) its directed asymetric graphical model representation (bottom panel)
+
+***Figure 1: A hierarhcy of the Bayesian Hierarchical Richards Model (top) and its graphical model representation (bottom).***
 
 <div align=center><img src="https://github.com/StevenBoys/BHRM/blob/main/Image/BHRM_formula.png?raw=true" alt=" "/></div>
+<div align=center><img src="https://github.com/StevenBoys/BHRM/blob/main/Image/graphical_model.png?raw=true" alt=" "/></div>
 
-***Figure 2: A hierarhcy of the Bayesian Hierarchical Richards Model.***
 
-## Examples
+## Example
 
-R package `BHRM` contains COVID-19 dataset comprises (i) `time_series_data` and (ii) `design_matrix` to train the BHRM. `time_series_data` includes infection growth curve from January 22nd to May 14th for 40 global countries and `design_matrix` includes 45 predictors which cover health care resources, population statistics, disease prevalence, etc.
+R package `BHRM` contains COVID-19 dataset comprises (i) `time_series_data` and (ii) `design_matrix` to train the BHRM. `time_series_data` includes infection growth curve from January 22nd to May 14th for 40 global countries and `design_matrix` has 45 predictors that cover health care resources, population statistics, disease prevalence, etc. Figure 2 displays infection trajectories for eight countries (US, Russia, UK, Brazil, Germany, China, India, and South Korea), spanning from January 22nd to May 14th, which accounts for 114 days.
 
+***Figure 2: Infection trajectories for eight countries updated on May 14th (Data source: JHU CSSE).***
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/infect_COVID-19.png?raw=true)
-***Figure 3: Infection trajectories for eight countries updated on May 14th (Data source: JHU CSSE).***
+
 
 To load the COVID-19 dataset, use
 ```r
@@ -75,17 +78,19 @@ extra_list = extrapolate(res_cov, Y, 1)
 plot_RM(extra_list$mean, Y[1, ])
 ```
 
+***Figure 3: Comparison between the real trajectory and extrapolated values.***
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/extrapolation.png?raw=true)
-***Figure 4: Comparison between the real trajectory and extrapolated values.***
 
-We can also compute flat points of the estimated Richards curve by using R function [`flat_time_point`](https://github.com/StevenBoys/BHRM/blob/main/R/flat_time_point.R). As shown in the Figure 6, the vertical blue lines refer to the three flat time points, while the horizontal blue line corresponds to the final epidemic size.
+
+We can also compute flat points of the estimated Richards curve by using R function [`flat_time_point`](https://github.com/StevenBoys/BHRM/blob/main/R/flat_time_point.R). As shown in the Figure 5, the vertical blue lines refer to the three flat time points, while the horizontal blue line corresponds to the final epidemic size.
 ```r
 out = flat_time_point(res_cov, Y, 1)
 out$figure
 ```
 
+***Figure 4: Plot that shows flat time points in the trajectory.***
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/flat_time_points.png?raw=true)
-***Figure 5: Plot that shows flat time points in the trajectory.***
+
 
 To obtain the values of flat time points and epidemic size, use 
 ```r
@@ -108,11 +113,12 @@ var_selection$id_sele
 var_selection$figure
 ```
 
+***Figure 5: 95% confidence intervals of the 20 potential factors for beta3.***
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
 
-***Figure 6: 95% confidence intervals of the 20 potential factors for beta3.***
+
 
 ## References
 
