@@ -1,7 +1,7 @@
 # BHRM: An R package implementing Bayesian Hierarchical Richards Model to Estimate Infection Trajectories and Identify Risk Factors for the COVID-19 Outbreak
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/Global_average2.png)
-***Figure 1: Extrapolated infectory for grand average over 40 countries.***
+
 
 ## Contents
 * [Overview](#overview)
@@ -30,12 +30,13 @@ library(BHRM)
 ## BHRM
 Bayesian hierarchical Richards model (BHRM) is a fully Bayesian version of non-linear mixed effect model where (i) on the first stage infection trajectories from N subjects (subjects can be states in a country, countries, etc) are described by the Richards growth curve, and (ii) on the second stage the sparse horseshoe prior indentifies important predictors that largely affect on the shape the curve. Richards growth curve has been widely used to describe epidemiology for real-time prediction of outbreak of diseases. Refer to our paper **["Estimation of COVID-19 spread curves integrating global data and borrowing information", PLOS ONE, (2020)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0236860)** for a detailed explanation of the BHRM.
 
-A hierarchy of the BHRM is shown in the figure below.
+Figure 1 shows (i) a hierarchy of the BHRM (top panel) and (ii) its directed asymetric graphical model representation (bottom panel)
+
+***Figure 1: A hierarhcy of the Bayesian Hierarchical Richards Model (top) and its graphical model representation (bottom).***
 
 <div align=center><img src="https://github.com/StevenBoys/BHRM/blob/main/Image/BHRM_formula.png?raw=true" alt=" "/></div>
 <div align=center><img src="https://github.com/StevenBoys/BHRM/blob/main/Image/graphical_model.png?raw=true" alt=" "/></div>
 
-***Figure 2: A hierarhcy of the Bayesian Hierarchical Richards Model.***
 
 ## Examples
 
