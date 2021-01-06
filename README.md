@@ -109,6 +109,8 @@ var_selection$figure
 ```
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
+![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
+![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
 
 ***Figure 6: 95% confidence intervals of the 20 potential factors for beta3.***
 
