@@ -78,17 +78,19 @@ extra_list = extrapolate(res_cov, Y, 1)
 plot_RM(extra_list$mean, Y[1, ])
 ```
 
+***Figure 3: Comparison between the real trajectory and extrapolated values.***
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/extrapolation.png?raw=true)
-***Figure 4: Comparison between the real trajectory and extrapolated values.***
 
-We can also compute flat points of the estimated Richards curve by using R function [`flat_time_point`](https://github.com/StevenBoys/BHRM/blob/main/R/flat_time_point.R). As shown in the Figure 6, the vertical blue lines refer to the three flat time points, while the horizontal blue line corresponds to the final epidemic size.
+
+We can also compute flat points of the estimated Richards curve by using R function [`flat_time_point`](https://github.com/StevenBoys/BHRM/blob/main/R/flat_time_point.R). As shown in the Figure 5, the vertical blue lines refer to the three flat time points, while the horizontal blue line corresponds to the final epidemic size.
 ```r
 out = flat_time_point(res_cov, Y, 1)
 out$figure
 ```
 
+***Figure 4: Plot that shows flat time points in the trajectory.***
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/flat_time_points.png?raw=true)
-***Figure 5: Plot that shows flat time points in the trajectory.***
+
 
 To obtain the values of flat time points and epidemic size, use 
 ```r
@@ -111,11 +113,12 @@ var_selection$id_sele
 var_selection$figure
 ```
 
+***Figure 5: 95% confidence intervals of the 20 potential factors for beta3.***
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele.png?raw=true)
 
-***Figure 6: 95% confidence intervals of the 20 potential factors for beta3.***
+
 
 ## References
 
