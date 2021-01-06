@@ -105,7 +105,7 @@ flat_time_point = function(model, Y, i, gamma = c(0.9999, 0.999, 0.99), y_name =
   g.res = ggplot() +
     geom_line(data = df_mean, mapping = aes(x = t.values, y = post_mean), col = "red", size = 1.2) +
     geom_point(data = df_obs, mapping = aes(x = t.values, y = obs), size = 2) +
-    xlab("Dates") + ylab(y_name) +
+    xlab("Days") + ylab(y_name) +
     theme(
       axis.text=element_text(size=size_axis_text),
       axis.title=element_text(size=size_axis_title),

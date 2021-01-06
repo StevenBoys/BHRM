@@ -75,7 +75,7 @@ To visualize the training results, use R functions [`extrapolate`](https://githu
 # make extrapolations
 extra_list = extrapolate(res_cov, Y, 1)
 # make a plot to see the performance of the extrapolations
-plot_RM(extra_list$mean, Y[1, ])
+plot_RM(extra_list$mean, Y[1, ], y_name = "Cumulative number of infected cases")
 ```
 
 ***Figure 3: Comparison between the real trajectory and extrapolated values.***
@@ -84,7 +84,7 @@ plot_RM(extra_list$mean, Y[1, ])
 
 We can also compute flat points of the estimated Richards curve by using R function [`flat_time_point`](https://github.com/StevenBoys/BHRM/blob/main/R/flat_time_point.R). As shown in the Figure 5, the vertical blue lines refer to the three flat time points, while the horizontal blue line corresponds to the final epidemic size.
 ```r
-out = flat_time_point(res_cov, Y, 1)
+out = flat_time_point(res_cov, Y, 1, y_name = "Cumulative number of infected cases")
 out$figure
 ```
 

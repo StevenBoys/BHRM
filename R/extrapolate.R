@@ -139,7 +139,7 @@ plot_RM = function(mean, y, upper = NULL, lower = NULL, num_days = 14, title = N
   g.res = ggplot() +
     geom_line(data = df_mean, mapping = aes(x = t.values, y = post_mean), col = "blue", size = 1.5) +
     geom_point(data = df_obs, mapping = aes(x = t.values, y = obs),size = 2.5, col = "#000000") +
-    xlab("Date") + ylab(y_name) +
+    xlab("Days") + ylab(y_name) +
     theme(
       axis.text=element_text(size=size_axis_text),
       axis.title=element_text(size=size_axis_title),
