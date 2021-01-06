@@ -121,6 +121,7 @@ var_selection$figure
 ***Table 1: Significant covariates explaining the curve parameters of the Richards curve.***
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/Important_Predictors.png?raw=true)
 
+
 ## References
 
 [1] [Se Yoon Lee, Bowen Lei, and Bani K. Mallick. (2020) “Estimation of COVID19 spread curves integrating global data and borrowing information,” PLOS ONE](https://journals.plos.org/plosone/article/authors?id=10.1371/journal.pone.0236860)
