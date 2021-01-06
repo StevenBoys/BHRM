@@ -40,10 +40,11 @@ Figure 1 shows (i) a hierarchy of the BHRM (top panel) and (ii) its directed asy
 
 ## Examples
 
-R package `BHRM` contains COVID-19 dataset comprises (i) `time_series_data` and (ii) `design_matrix` to train the BHRM. `time_series_data` includes infection growth curve from January 22nd to May 14th for 40 global countries and `design_matrix` includes 45 predictors which cover health care resources, population statistics, disease prevalence, etc.
+R package `BHRM` contains COVID-19 dataset comprises (i) `time_series_data` and (ii) `design_matrix` to train the BHRM. `time_series_data` includes infection growth curve from January 22nd to May 14th for 40 global countries and `design_matrix` has 45 predictors that cover health care resources, population statistics, disease prevalence, etc. Figure 2 displays infection trajectories for eight countries (US, Russia, UK, Brazil, Germany, China, India, and South Korea), spanning from January 22nd to May 14th, which accounts for 114 days.
 
+***Figure 2: Infection trajectories for eight countries updated on May 14th (Data source: JHU CSSE).***
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/infect_COVID-19.png?raw=true)
-***Figure 3: Infection trajectories for eight countries updated on May 14th (Data source: JHU CSSE).***
+
 
 To load the COVID-19 dataset, use
 ```r
