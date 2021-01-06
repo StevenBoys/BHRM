@@ -1,15 +1,5 @@
 
-BHRM_cov_temp = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varrho = 0, pro.var.theta.2 = 0.0002, pro.var.theta.3 = 0.05, mu = 0, rho.sq = 1){
-
-  # Y: N-by-T time sereis data for N countries for T days
-  # t.values: N list for time perids for N countries
-  # X: N-by-p design matrix (Should be column-wised standardized in advance)
-  # Index: i=1:N index for country || t=1:T_i index for time points (time ponts for each trajectory can differ) || j=1:p index for covariates
-  # burn: no of burn
-  # nmc: no of iterations after burn
-  # thin: no of thining for the nmc
-  # varrho: hyper-parameter for the diffuse prior error variances ~ IG(varrho,varrho)
-  # pro.var.theta.2 and pro.var.theta.2: proposal variances for the MH algorithms to sample from theta.2.i and theta.3.i
+BHRM_cov_temp = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varrho = 0, pro.var.theta.2 = 0.0002, pro.var.theta.3 = 0.05, mu = 0, rho.sq = 1, standardize = TRUE){
 
   # Calling packages
   {
@@ -25,6 +15,25 @@ BHRM_cov_temp = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varr
       y = as.numeric(Y[i,t.values[[i]]])
       return(y)
     }
+  }
+
+  # standardize the covariates
+  if(standardize){
+    norm_vec = function( x , y = rep(0,length(x)) ) {
+      norm_vector = sqrt(sum((x-y)^2))
+
+      if (norm_vector == Inf){
+        norm_vector = 1e+308
+      } else {
+        norm_vector = norm_vector
+      }
+      return(norm_vector)
+    }
+    for (j in 1:ncol(X)){
+      X[,j] = X[,j] - mean(X[,j])
+      X[,j] = X[,j]/norm_vec(x = X[,j], y = rep(0,nrow(X)))
+    }
+    X = as.matrix(X)
   }
 
   # MCMC setting
@@ -79,7 +88,7 @@ BHRM_cov_temp = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varr
       xi.vec[i,1] = 0.1
 
       f = function(t, theta.1,theta.2, theta.3, xi){
-        # (Original) Richard model
+        # (Original) Richards model
         # theta.1: K : final epidemic size : real number
         # theta.2: r : intrinsic growth rate : real number
         # theta.3: tau : disease turning point : real number
@@ -93,7 +102,7 @@ BHRM_cov_temp = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varr
         nomi = log(f(t = theta.3.vec[i,1] + eps, theta.1 = theta.1.vec[i,1], theta.2 = x, theta.3 = theta.3.vec[i,1], xi = xi.vec[i,1])/
                      f(t = theta.3.vec[i,1], theta.1 = theta.1.vec[i,1], theta.2 = x, theta.3 = theta.3.vec[i,1], xi = xi.vec[i,1]))
         denom = eps
-        # nomi/denom corresponds to the derivative of the logarithm of the Richard curve
+        # nomi/denom corresponds to the derivative of the logarithm of the Richards curve
         res = x/2 - nomi/denom
         return(res)
       }
@@ -151,9 +160,9 @@ BHRM_cov_temp = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varr
       # Identity matrix
       I.N = diag(one.vec.N)
 
-      # Richard model
+      # Richards model
       f = function(t, theta.1,theta.2, theta.3, xi){
-        # (Original) Richard model
+        # (Original) Richards model
         # theta.1: K : final epidemic size : real number
         # theta.2: r : intrinsic growth rate : real number
         # theta.3: tau : disease turning point : real number
@@ -162,7 +171,7 @@ BHRM_cov_temp = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varr
         return(res)
       }
 
-      # T_i-dimensional vector for Richard model
+      # T_i-dimensional vector for Richards model
       f.i.vec = function(i,theta.1.i,theta.2.i,theta.3.i, xi.i){
         res = matrix(data = f(t.values[[i]], theta.1 = theta.1.i, theta.2 = theta.2.i, theta.3 = theta.3.i, xi = xi.i), ncol = 1)
         return(res)
@@ -719,7 +728,7 @@ BHRM_cov_temp = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varr
   }
 }
 
-#' Function that implement Bayesian Hierarchical Richard model with covariates
+#' Function that implement Bayesian Hierarchical Richards model with covariates
 #'
 #' @param Y - N-by-T time sereis data for N countries for T days
 #' @param t.values - N list for time perids for N countries
@@ -733,6 +742,7 @@ BHRM_cov_temp = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varr
 #' @param pro.var.theta.3 - proposal variances for the MH algorithms to sample from theta.3.i
 #' @param mu - mu
 #' @param rho.sq - rho.sq
+#' @param standardize - a logical value that indicates whether standardize the covariates or not
 #'
 #' @return A list of
 #'        \item{thinned.theta.1.vec}{ - thinned.theta.1.vec}
@@ -768,7 +778,7 @@ BHRM_cov_temp = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varr
 #' res_cov = BHRM_cov(Y = Y, X = X, t.values = t.values, seed.no = seed.no, burn = burn,
 #' nmc = nmc, thin = thin, varrho = varrho, pro.var.theta.2 = pro.var.theta.2,
 #' pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)
-BHRM_cov = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varrho = 0, pro.var.theta.2 = 0.0002, pro.var.theta.3 = 0.05, mu = 0, rho.sq = 1){
+BHRM_cov = function(Y,t.values,X,seed.no=1,burn=2000,nmc=2000,thin=10, varrho = 0, pro.var.theta.2 = 0.0002, pro.var.theta.3 = 0.05, mu = 0, rho.sq = 1, standardize = TRUE){
   library("compiler")
   BHRM_cov = cmpfun(BHRM_cov_temp)
   res = BHRM_cov(Y,t.values,X,seed.no,burn,nmc,thin, varrho, pro.var.theta.2, pro.var.theta.3, mu, rho.sq)

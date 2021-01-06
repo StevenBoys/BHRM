@@ -24,7 +24,7 @@
 #' res_cov = BHRM_cov(Y = Y, X = X, t.values = t.values, seed.no = seed.no, burn = burn,
 #' nmc = nmc, thin = thin, varrho = varrho, pro.var.theta.2 = pro.var.theta.2,
 #' pro.var.theta.3 = pro.var.theta.3, mu = mu, rho.sq = rho.sq)
-#' var_selection = var_sele(beta.vec = res_cov$thinned.theta.1.vec, names = names(X))
+#' var_selection = var_sele(beta.vec = res_cov$thinned.beta.3.vec, names = names(X))
 var_sele = function(beta.vec, max.rank = 10, names = NULL){
   library("ggplot2")
   # Input should be posterior realizations of p dimensional vector of beta
@@ -75,7 +75,7 @@ var_sele = function(beta.vec, max.rank = 10, names = NULL){
     scale_color_manual(values = c('1' = '#1E90FF', '-1' = '#FF4500', '0' = '#191970')) +
     theme(text = element_text(size=20),
           axis.ticks.y = element_blank()) +
-    ylim(y_lim)
+    ylim(rev(y_lim))
 
   id_sele = gene.rank[1:max.rank]
   if(!is.null(names)){
