@@ -100,7 +100,7 @@ out$epi_size
 # [1] 1428479
 ```
 
-We can use R function [`var_sele`](https://github.com/StevenBoys/BHRM/blob/main/R/var_sele.R) to visualize the result of variable selection implemented via sparse horseshoe prior.
+We can use R function [`var_sele`](https://github.com/StevenBoys/BHRM/blob/main/R/var_sele.R) to visualize the result of covartiates analysis obtained via sparse horseshoe prior. Figure 5 displays 95% posterior credible intervals for each of the three coefficient vectors used in the second stage of the BHRM.
 ```r
 # check the important factors for beta1
 var_selection1 = var_sele(beta.vec = res_cov$thinned.beta.1.vec, j = 1)
@@ -123,11 +123,12 @@ var_selection2$figure
 var_selection3$figure
 ```
 
-***Figure 5: 95% confidence intervals of the 20 potential factors for beta1, beta2, and beta3.***
+***Figure 5: 95% confidence intervals of the 20 potential factors for beta1 (top), beta2 (middle), and beta3 (bottom).***
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele1.png?raw=true)
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele2.png?raw=true)
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/var_sele3.png?raw=true)
 
+Table 1 summarizes results of the panels in Figure 5.
 ***Table 1: Significant covariates explaining the curve parameters of the Richards curve.***
 
 ![](https://github.com/StevenBoys/BHRM/blob/main/Image/Important_Predictors.PNG?raw=true)
