@@ -61,7 +61,7 @@ data("design_matrix")
 data("time_series_data")
 Y = time_series_data[, -c(1:2)]; X = design_matrix[, -c(1:2)]
 ```
-To train BHRM with the aforementioned dataset, use the R function [`BHRM_cov`](https://github.com/StevenBoys/BHRM/blob/main/R/BHRM_cov.R) as following way. The [`BHRM_cov`](https://github.com/StevenBoys/BHRM/blob/main/R/BHRM_cov.R) implements a Gibbs sampling algorithm to sample from the posterior distribution for the BHRM given the dataset.
+To train BHRM with the aforementioned dataset, use the R function [`BHRM_cov`](https://github.com/StevenBoys/BHRM/blob/main/R/BHRM_cov.R) as following way. The [`BHRM_cov`](https://github.com/StevenBoys/BHRM/blob/main/R/BHRM_cov.R) implements a Gibbs sampling algorithm to sample from the posterior distribution for the BHRM given the dataset. It may need at least 10 minutes to train the data, depending on CPU speed.
 ```r
 # set the hyperparameters
 seed.no = 1 ; burn = 5000 ; nmc = 5000 ; thin = 30; varrho = 0
@@ -107,7 +107,7 @@ out$epi_size
 # [1] 1428479
 ```
 
-We can use R function [`var_sele`](https://github.com/StevenBoys/BHRM/blob/main/R/var_sele.R) to visualize the result of covartiates analysis obtained via sparse horseshoe prior. Figure 5 displays 95% posterior credible intervals for each of the three coefficient vectors used in the second stage of the BHRM.
+We can use R function [`var_sele`](https://github.com/StevenBoys/BHRM/blob/main/R/var_sele.R) to visualize the result of covartiates analysis obtained via sparse horseshoe prior. Figure 5 displays 95% posterior credible intervals for each of the three coefficient vectors used in the second stage of the BHRM. 
 ```r
 # check the important factors for beta1
 var_selection1 = var_sele(beta.vec = res_cov$thinned.beta.1.vec, j = 1)
