@@ -19,6 +19,13 @@ The sources of the datasets are:
 3. [World Health Organization](https://apps.who.int/gho/data/node.main)
 4. [National Oceanic and Atmospheric Administration](https://www.noaa.gov/)
 
+## Required R version
+```r
+R version 4.0.4 (or higher)
+```
+
+
+
 ## Installation
 
 ```r
