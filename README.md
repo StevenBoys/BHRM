@@ -30,7 +30,7 @@ R version 4.0.4 (or higher)
 
 ```r
 require(devtools)
-devtools::install_github("StevenBoys/BHRM")
+devtools::install_github("StevenBoys/BHRM", ref = "HEAD")
 library(BHRM)
 ```
 
