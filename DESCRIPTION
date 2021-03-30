@@ -1,7 +1,7 @@
 Package: BHRM
 Type: Package
 Title: R package for Bayesian Hierarchical Richard Model
-Version: 0.0.9000
+Version: 1.0.0
 Author: c(person("Bowen", "Lei", email = "bowenlei@stat.tamu.edu", role = c("aut", "cre")),
           person("Se Yoon", "Lee", email = "seyoonlee@stat.tamu.edu", role = c("aut", "cre")),
           person("Bani", "Mallick", email = "bmallick@stat.tamu.edu", role = c("aut")))
@@ -11,7 +11,12 @@ License: GPL-2
 Encoding: UTF-8
 LazyData: true
 Import:
-    mvtnor,
+    mvtnorm,
     truncdist,
-    nleqslv
+    nleqslv,
+    ggplot2,
+    compiler,
+    scales,
+    ggthemes,
+    svMisc
 RoxygenNote: 7.1.1
