@@ -1,22 +1,27 @@
-Package: BHRM
 Type: Package
+Package: BHRM
 Title: R package for Bayesian Hierarchical Richard Model
 Version: 1.0.0
-Author: c(person("Bowen", "Lei", email = "bowenlei@stat.tamu.edu", role = c("aut", "cre")),
-          person("Se Yoon", "Lee", email = "seyoonlee@stat.tamu.edu", role = c("aut", "cre")),
-          person("Bani", "Mallick", email = "bmallick@stat.tamu.edu", role = c("aut")))
+Author: c(person("Bowen", "Lei", email =
+    "bowenlei@stat.tamu.edu", role = c("aut", "cre")), person("Se Yoon",
+    "Lee", email = "seyoonlee@stat.tamu.edu", role = c("aut", "cre")),
+    person("Bani", "Mallick", email = "bmallick@stat.tamu.edu", role =
+    c("aut")))
 Maintainer: Bowen Lei <bowenlei@stat.tamu.edu>
-Description: Bayesian Hierarchical Richard Model is a good choice when fitting the growth trajectory. BHRM can help you to do it. At the same time, you can do variable selection and find the important predictors.
+Description: Bayesian Hierarchical Richard Model is a good
+    choice when fitting the growth trajectory. BHRM can help you to do it.
+    At the same time, you can do variable selection and find the important
+    predictors.
 License: GPL-2
+Imports: 
+    compiler,
+    ggplot2,
+    ggthemes,
+    mvtnorm,
+    nleqslv,
+    scales,
+    svMisc,
+    truncdist
 Encoding: UTF-8
 LazyData: true
-Import:
-    mvtnorm,
-    truncdist,
-    nleqslv,
-    ggplot2,
-    compiler,
-    scales,
-    ggthemes,
-    svMisc
 RoxygenNote: 7.1.1
