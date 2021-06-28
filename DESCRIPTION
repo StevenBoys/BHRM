@@ -7,7 +7,7 @@ Author: c(person("Bowen", "Lei", email =
     "Lee", email = "seyoonlee@stat.tamu.edu", role = c("aut", "cre")),
     person("Bani", "Mallick", email = "bmallick@stat.tamu.edu", role =
     c("aut")))
-Maintainer: Bowen Lei <bowenlei@stat.tamu.edu>
+Maintainer: Bowen Lei <bowenlei@stat.tamu.edu> and Se Yoon Lee <seyoonlee@stat.tamu.edu>
 Description: Bayesian Hierarchical Richard Model is a good
     choice when fitting the growth trajectory. BHRM can help you to do it.
     At the same time, you can do variable selection and find the important
