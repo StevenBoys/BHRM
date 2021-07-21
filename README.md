@@ -11,7 +11,7 @@
 * [References](#References)
 
 ## Overview
-An R package `BHRM` of the paper titled  **["Estimation of COVID-19 spread curves integrating global data and borrowing information", PLOS ONE, (2020)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0236860)** is available here. This is a joint project of Ph.D. students, Bowen Lei (bowenlei@stat.tamu.edu) and [Dr. Se Yoon Lee](https://sites.google.com/view/seyoonlee) (seyoonlee@stat.tamu.edu), and a University Distinguished Professor [Dr. Bani K. Mallick](https://www.stat.tamu.edu/~bmallick/) (bmallick@stat.tamu.edu) at Texas A&M University. Dr. Lee is currenlty a Scientist - Clinical Pharmacology, Modeling & Simulation at [Amgen Inc](https://www.amgen.com/). 
+An R package `BHRM` of the paper titled  **["Estimation of COVID-19 spread curves integrating global data and borrowing information", PLOS ONE, (2020)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0236860)** is available here. This is a joint project of Ph.D. student Bowen Lei (bowenlei@stat.tamu.edu), and a former Ph.D. student [Dr. Se Yoon Lee](https://sites.google.com/view/seyoonlee) (seyoonlee@stat.tamu.edu), and a University Distinguished Professor [Dr. Bani K. Mallick](https://www.stat.tamu.edu/~bmallick/) (bmallick@stat.tamu.edu) at Texas A&M University. [Dr. Lee](https://sites.google.com/view/seyoonlee) is currenlty a Scientist - Clinical Pharmacology, Modeling & Simulation at [Amgen Inc](https://www.amgen.com/). 
 
 The objective of the R package `BHRM` is implement Bayesian Hierarchical Richards Model (BHRM) applied to the COVID-19 dataset obtained from multiple countries. 
 
