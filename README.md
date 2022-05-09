@@ -150,4 +150,6 @@ Table 1 summarizes results of the panels in Figure 5.
 
 [2] [Se Yoon Lee and Bani K. Mallick. (2021) “Bayesian Hierarchical modeling: application towards production results in the Eagle Ford Shale of South Texas,” Sankhyā: The Indian Journal of Statistics, Series B](https://rdcu.be/ceg4p) ; [[Github]](https://github.com/yain22/SWM)
 
-[3] [Davidian, M., and Giltinan, D. M. (1995). Nonlinear models for repeated measurement data (Vol. 62). CRC press.](https://books.google.com/books?hl=en&lr=&id=0eSIBPAL4qsC&oi=fnd&pg=IA7&dq=nonlinear+mixed+effect+model+giltnan&ots=9frDPH3F4J&sig=L5Wz91waGu447OdyYHQ8Vp5ckQc#v=onepage&q=nonlinear%20mixed%20effect%20model%20giltnan&f=false)
+[3] [Se Yoon Lee. (2022) “Bayesian Nonlinear Models for Repeated Measurement Data: An Overview, Implementation, and Applications,” Mathematics](https://www.mdpi.com/2227-7390/10/6/898)
+
+[4] [Davidian, M., and Giltinan, D. M. (1995). Nonlinear models for repeated measurement data (Vol. 62). CRC press.](https://books.google.com/books?hl=en&lr=&id=0eSIBPAL4qsC&oi=fnd&pg=IA7&dq=nonlinear+mixed+effect+model+giltnan&ots=9frDPH3F4J&sig=L5Wz91waGu447OdyYHQ8Vp5ckQc#v=onepage&q=nonlinear%20mixed%20effect%20model%20giltnan&f=false)
