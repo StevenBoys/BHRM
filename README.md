@@ -11,7 +11,7 @@
 * [References](#References)
 
 ## Overview
-An R package `BHRM` of the paper titled  **["Estimation of COVID-19 spread curves integrating global data and borrowing information", PLOS ONE, (2020)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0236860)** is available here. This is a joint project of Ph.D. student Bowen Lei (bowenlei@stat.tamu.edu), and a former Ph.D. student [Dr. Se Yoon Lee](https://sites.google.com/view/seyoonlee) (seyoonlee@stat.tamu.edu), and a University Distinguished Professor [Dr. Bani K. Mallick](https://www.stat.tamu.edu/~bmallick/) (bmallick@stat.tamu.edu) at Texas A&M University. [Dr. Lee](https://sites.google.com/view/seyoonlee) is currenlty a Scientist - Clinical Pharmacology, Modeling & Simulation at [Amgen Inc](https://www.amgen.com/). 
+An R package `BHRM` of the paper titled  **["Estimation of COVID-19 spread curves integrating global data and borrowing information", PLOS ONE, (2020)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0236860)** is available here. This is a joint project of Ph.D. student Bowen Lei (bowenlei@stat.tamu.edu), and a former Ph.D. student [Dr. Se Yoon Lee](https://sites.google.com/view/seyoonlee) (seyoonlee@stat.tamu.edu), and a University Distinguished Professor [Dr. Bani K. Mallick](https://www.stat.tamu.edu/~bmallick/) (bmallick@stat.tamu.edu) at Texas A&M University. 
 
 The objective of the R package `BHRM` is implement Bayesian Hierarchical Richards Model (BHRM) applied to the COVID-19 dataset obtained from multiple countries. `BHRM` is an all-in-one R package that includes dataset, Gibbs sampling algorithm, and visualization tools from output. 
 
@@ -150,4 +150,6 @@ Table 1 summarizes results of the panels in Figure 5.
 
 [2] [Se Yoon Lee and Bani K. Mallick. (2021) “Bayesian Hierarchical modeling: application towards production results in the Eagle Ford Shale of South Texas,” Sankhyā: The Indian Journal of Statistics, Series B](https://rdcu.be/ceg4p) ; [[Github]](https://github.com/yain22/SWM)
 
-[3] [Davidian, M., and Giltinan, D. M. (1995). Nonlinear models for repeated measurement data (Vol. 62). CRC press.](https://books.google.com/books?hl=en&lr=&id=0eSIBPAL4qsC&oi=fnd&pg=IA7&dq=nonlinear+mixed+effect+model+giltnan&ots=9frDPH3F4J&sig=L5Wz91waGu447OdyYHQ8Vp5ckQc#v=onepage&q=nonlinear%20mixed%20effect%20model%20giltnan&f=false)
+[3] [Se Yoon Lee. (2022) “Bayesian Nonlinear Models for Repeated Measurement Data: An Overview, Implementation, and Applications,” Mathematics](https://www.mdpi.com/2227-7390/10/6/898)
+
+[4] [Davidian, M., and Giltinan, D. M. (1995). Nonlinear models for repeated measurement data (Vol. 62). CRC press.](https://books.google.com/books?hl=en&lr=&id=0eSIBPAL4qsC&oi=fnd&pg=IA7&dq=nonlinear+mixed+effect+model+giltnan&ots=9frDPH3F4J&sig=L5Wz91waGu447OdyYHQ8Vp5ckQc#v=onepage&q=nonlinear%20mixed%20effect%20model%20giltnan&f=false)
